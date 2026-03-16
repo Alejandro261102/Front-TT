@@ -1,127 +1,115 @@
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PrivateLayout from '../components/PrivateLayout'
+import DetallesModal from '../components/DetallesModal'
+
+const getSecurityBadge = (status) => {
+  if (status === 'password') return <span title="Bloqueada con contraseña" style={{ fontSize: '1rem', marginRight: '6px' }}>🔒</span>;
+  if (status === 'encrypted') return <span title="Cifrada de alto nivel" style={{ fontSize: '1rem', marginRight: '6px' }}>🛡️</span>;
+  return null;
+}
+
+const fetchFoldersData = async () => {
+  try {
+    return {
+      stats: { total: 12, shared: 4, favorites: 3 },
+      folders: [
+        { id: 'fld-1', name: 'Documentos personales', fileCount: 12, lastModified: 'Hoy', icon: '📁', security: 'encrypted' },
+        { id: 'fld-2', name: 'Proyecto terminal', fileCount: 8, lastModified: 'Ayer', icon: '📁', security: 'public' },
+        { id: 'fld-4', name: 'Borradores Financieros', fileCount: 10, lastModified: 'Hoy', icon: '📁', security: 'password' }
+      ]
+    };
+  } catch (error) {
+    throw error;
+  }
+}
 
 export default function Carpetas() {
+  const navigate = useNavigate()
+  const [data, setData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [elementoSeleccionado, setElementoSeleccionado] = useState(null) // <- NUEVO
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setIsLoading(true);
+        const result = await fetchFoldersData();
+        setData(result);
+      } catch (err) {
+        setError('No se pudo cargar la información de las carpetas.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadData();
+  }, [])
+
   return (
     <PrivateLayout>
-      {/* Cabecera de la página */}
       <section className="section-top" style={{ marginBottom: '24px' }}>
         <div>
           <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Mis carpetas</h1>
-          <p style={{ color: 'var(--color-medium-dark)' }}>
-            Organiza, consulta y administra tus carpetas en un solo lugar.
-          </p>
+          <p style={{ color: 'var(--color-medium-dark)' }}>Organiza, consulta y administra tus carpetas.</p>
         </div>
-
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <button className="btn btn-secondary">Ordenar</button>
-          <button className="btn btn-primary">+ Nueva carpeta</button>
+          <button className="btn btn-primary" onClick={() => alert('Crear nueva carpeta')}>+ Nueva carpeta</button>
         </div>
       </section>
 
-      {/* Tarjetas de Resumen */}
-      <section className="stats-grid">
-        <article className="stat-card">
-          <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Total de carpetas</span>
-          <p className="stat-number">12</p>
-        </article>
+      {isLoading && <div style={{ padding: '40px', textAlign: 'center' }}>Cargando carpetas...</div>}
+      {error && <div style={{ padding: '20px', backgroundColor: '#ffe5e5', color: '#d93025' }}>{error}</div>}
 
-        <article className="stat-card">
-          <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Compartidas</span>
-          <p className="stat-number">4</p>
-        </article>
+      {!isLoading && !error && data && (
+        <>
+          <section className="stats-grid">
+            <article className="stat-card" style={{ cursor: 'pointer' }}>
+              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Total de carpetas</span>
+              <p className="stat-number">{data.stats.total}</p>
+            </article>
+            <article className="stat-card" onClick={() => navigate('/compartidos')} style={{ cursor: 'pointer' }}>
+              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Compartidas</span>
+              <p className="stat-number">{data.stats.shared}</p>
+            </article>
+            <article className="stat-card" style={{ cursor: 'pointer' }}>
+              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Favoritas</span>
+              <p className="stat-number">{data.stats.favorites}</p>
+            </article>
+          </section>
 
-        <article className="stat-card">
-          <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Favoritas</span>
-          <p className="stat-number">3</p>
-        </article>
-      </section>
-
-      {/* Cuadrícula de Carpetas */}
-      <section style={{ marginTop: '36px' }}>
-        <h2 style={{ color: 'var(--color-primary)', marginBottom: '20px', fontSize: '1.5rem' }}>
-          Carpetas disponibles
-        </h2>
-
-        <div className="cards-grid">
-          {/* Carpeta 1 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
+          <section style={{ marginTop: '36px' }}>
+            <h2 style={{ color: 'var(--color-primary)', marginBottom: '20px', fontSize: '1.5rem' }}>Carpetas disponibles</h2>
+            <div className="cards-grid">
+              {data.folders.map(folder => (
+                <article key={folder.id} className="folder-card" onClick={() => navigate(`/carpeta/${folder.id}`)} style={{ cursor: 'pointer' }}>
+                  <div className="folder-card-top">
+                    <span className="folder-icon">{folder.icon}</span>
+                    <button className="card-menu-btn" onClick={(e) => {
+                      e.stopPropagation();
+                      setElementoSeleccionado(folder);
+                    }}>⋮</button>
+                  </div>
+                  <div className="folder-card-body">
+                    <h3 title={folder.name} style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center' }}>
+                      {getSecurityBadge(folder.security)}
+                      {folder.name}
+                    </h3>
+                    <p>{folder.fileCount} archivos</p>
+                    <small>Modificado: {folder.lastModified}</small>
+                  </div>
+                </article>
+              ))}
             </div>
-            <div className="folder-card-body">
-              <h3>Documentos personales</h3>
-              <p>12 archivos</p>
-              <small>Última modificación: Hoy</small>
-            </div>
-          </article>
-
-          {/* Carpeta 2 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
-            </div>
-            <div className="folder-card-body">
-              <h3>Proyecto terminal</h3>
-              <p>8 archivos</p>
-              <small>Última modificación: Ayer</small>
-            </div>
-          </article>
-
-          {/* Carpeta 3 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
-            </div>
-            <div className="folder-card-body">
-              <h3>Fotos</h3>
-              <p>25 archivos</p>
-              <small>Última modificación: Hace 3 días</small>
-            </div>
-          </article>
-
-          {/* Carpeta 4 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
-            </div>
-            <div className="folder-card-body">
-              <h3>Compartidos con equipo</h3>
-              <p>10 archivos</p>
-              <small>Última modificación: Hoy</small>
-            </div>
-          </article>
-
-          {/* Carpeta 5 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
-            </div>
-            <div className="folder-card-body">
-              <h3>Respaldos</h3>
-              <p>6 archivos</p>
-              <small>Última modificación: Hace 1 semana</small>
-            </div>
-          </article>
-
-          {/* Carpeta 6 */}
-          <article className="folder-card">
-            <div className="folder-card-top">
-              <span className="folder-icon">📁</span>
-              <button className="card-menu-btn">⋮</button>
-            </div>
-            <div className="folder-card-body">
-              <h3>Tareas escolares</h3>
-              <p>14 archivos</p>
-              <small>Última modificación: Hace 2 días</small>
-            </div>
-          </article>
-        </div>
-      </section>
+          </section>
+        </>
+      )}
+      {/* Nuestro nuevo Modal Global */}
+      <DetallesModal 
+        elemento={elementoSeleccionado} 
+        onClose={() => setElementoSeleccionado(null)} 
+      />
     </PrivateLayout>
   )
 }

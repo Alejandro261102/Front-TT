@@ -10,6 +10,11 @@ export default function Sidebar({ isOpen, closeSidebar }) {
 
       <nav className="sidebar-nav">
         <ul>
+          <li><NavLink to="/nosotros" onClick={closeSidebar}>Nosotros</NavLink></li>
+          <li><NavLink to="/servicios" onClick={closeSidebar}>Servicios</NavLink></li>
+
+          <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} />
+
           <li><NavLink to="/dashboard" onClick={closeSidebar}>Dashboard</NavLink></li>
           <li><NavLink to="/carpetas" onClick={closeSidebar}>Carpetas</NavLink></li>
           <li><NavLink to="/recientes" onClick={closeSidebar}>Recientes</NavLink></li>
@@ -17,10 +22,8 @@ export default function Sidebar({ isOpen, closeSidebar }) {
           <li><NavLink to="/subir-archivo" onClick={closeSidebar}>Subir archivo</NavLink></li>
           <li><NavLink to="/papelera" onClick={closeSidebar}>Papelera</NavLink></li>
           
-          {/* Separador visual */}
           <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} />
           
-          {/* Nuevas opciones */}
           <li><NavLink to="/configuracion" onClick={closeSidebar}>Configuración</NavLink></li>
           <li><NavLink to="/ayuda" onClick={closeSidebar}>Ayuda</NavLink></li>
         </ul>
