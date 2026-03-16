@@ -4,18 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard | Aplicación Web TT2</title>
-
-  <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/global.css" />
-  <link rel="stylesheet" href="../css/components.css" />
-  <link rel="stylesheet" href="../css/dashboard.css" />
-  <link rel="stylesheet" href="../css/app-layout.css">
-  <link rel="stylesheet" href="../css/components.css">
-    <script src="../js/sidebar.js"></script>
+  <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
+  <div class="app-overlay" id="appOverlay"></div>
+
   <header class="private-header">
     <div class="private-header-left">
+      <button class="menu-toggle-btn" id="menuToggleBtn">☰</button>
       <a href="../index.html" class="private-logo">Aplicación Web TT2</a>
     </div>
 
@@ -36,10 +32,12 @@
   </header>
 
   <div class="dashboard-layout">
-    <aside class="sidebar">
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header-mobile">
+        <h3 class="sidebar-title" style="margin:0;">Menú</h3>
+        <button class="sidebar-close-btn" id="closeSidebarBtn">&times;</button>
+      </div>
       <nav class="sidebar-nav">
-        <h3 class="sidebar-title">Menú</h3>
-
         <ul>
           <li><a href="./dashboard.html" class="active">Dashboard</a></li>
           <li><a href="./carpetas.html">Carpetas</a></li>
@@ -52,141 +50,21 @@
     </aside>
 
     <main class="dashboard-main">
-      <section class="dashboard-welcome">
+      <section class="section-top">
         <div>
-          <p class="section-label">Panel principal</p>
           <h1>Bienvenido, Alejandro</h1>
-          <p class="section-text">
-            Aquí puedes consultar tus archivos recientes, carpetas principales y accesos rápidos.
-          </p>
+          <p>Aquí puedes consultar tus archivos recientes, carpetas principales y accesos rápidos.</p>
         </div>
-
         <a href="./subir-archivo.html" class="btn btn-primary">+ Subir archivo</a>
       </section>
 
       <section class="stats-grid">
-        <article class="stat-card">
-          <h3>Archivos totales</h3>
-          <p class="stat-number">128</p>
-        </article>
-
-        <article class="stat-card">
-          <h3>Carpetas</h3>
-          <p class="stat-number">16</p>
-        </article>
-
-        <article class="stat-card">
-          <h3>Compartidos</h3>
-          <p class="stat-number">24</p>
-        </article>
-
-        <article class="stat-card">
-          <h3>En papelera</h3>
-          <p class="stat-number">5</p>
-        </article>
-      </section>
-
-      <section class="dashboard-section">
-        <div class="section-top">
-          <h2>Archivos recientes</h2>
-          <a href="./recientes.html">Ver todos</a>
-        </div>
-
-        <div class="cards-grid">
-          <article class="file-card">
-            <div class="file-card-top">
-              <span class="file-type">PDF</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Reporte_Final.pdf</h3>
-            <p>Modificado hace 2 horas</p>
-          </article>
-
-          <article class="file-card">
-            <div class="file-card-top">
-              <span class="file-type">DOCX</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Propuesta_Proyecto.docx</h3>
-            <p>Modificado ayer</p>
-          </article>
-
-          <article class="file-card">
-            <div class="file-card-top">
-              <span class="file-type">PNG</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Mockup_Login.png</h3>
-            <p>Modificado hace 3 días</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="dashboard-section">
-        <div class="section-top">
-          <h2>Carpetas principales</h2>
-          <a href="./carpetas.html">Ver todas</a>
-        </div>
-
-        <div class="cards-grid">
-          <article class="folder-card">
-            <div class="folder-card-top">
-              <span class="folder-icon">📁</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Proyecto TT</h3>
-            <p>12 archivos</p>
-          </article>
-
-          <article class="folder-card">
-            <div class="folder-card-top">
-              <span class="folder-icon">📁</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Documentos Escolares</h3>
-            <p>8 archivos</p>
-          </article>
-
-          <article class="folder-card">
-            <div class="folder-card-top">
-              <span class="folder-icon">📁</span>
-              <button class="card-menu-btn">⋮</button>
-            </div>
-            <h3>Recursos</h3>
-            <p>21 archivos</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="dashboard-section">
-        <div class="section-top">
-          <h2>Actividad reciente</h2>
-        </div>
-
-        <div class="activity-list">
-          <article class="activity-item">
-            <span>Se subió el archivo <strong>Reporte_Final.pdf</strong></span>
-            <small>Hace 2 horas</small>
-          </article>
-
-          <article class="activity-item">
-            <span>Compartiste <strong>Mockup_Login.png</strong> con 2 contactos</span>
-            <small>Ayer</small>
-          </article>
-
-          <article class="activity-item">
-            <span>Se creó la carpeta <strong>Proyecto TT</strong></span>
-            <small>Hace 3 días</small>
-          </article>
-        </div>
+        <article class="stat-card"><h3>Archivos totales</h3><p class="stat-number">128</p></article>
+        <article class="stat-card"><h3>Carpetas</h3><p class="stat-number">16</p></article>
       </section>
     </main>
   </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Aplicación Web TT2. Todos los derechos reservados.</p>
-    </div>
-  </footer>
+  <script src="../js/slidebar.js"></script>
 </body>
 </html>
