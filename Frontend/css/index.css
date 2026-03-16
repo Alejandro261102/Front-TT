@@ -1,0 +1,246 @@
+.hero {
+  padding-top: 50px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.section-badge {
+  display: inline-block;
+  background-color: rgba(90, 18, 54, 0.12);
+  color: var(--color-primary);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  line-height: 1.15;
+  color: var(--color-dark);
+  margin-bottom: 18px;
+}
+
+.hero-text p {
+  font-size: 1.08rem;
+  color: var(--color-medium-dark);
+  max-width: 620px;
+  margin-bottom: 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-visual img,
+.features-image img {
+  width: 100%;
+  display: block;
+  border-radius: 32px;
+  box-shadow: var(--shadow-soft);
+  object-fit: cover;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 36px;
+  align-items: stretch;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feature-card {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 24px 28px;
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.feature-title-card h2 {
+  font-size: 2.2rem;
+  line-height: 1.15;
+}
+
+.feature-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.how-it-works {
+  background-color: #e7e7e7;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.section-heading h2 {
+  font-size: 2.4rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.section-heading p {
+  color: var(--color-medium-dark);
+  font-size: 1.02rem;
+}
+
+.section-heading.dark {
+  background-color: #6d6d6d;
+  color: var(--color-white);
+  border-radius: 28px 28px 0 0;
+  padding: 20px 24px;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.section-heading.dark h2 {
+  color: var(--color-white);
+  margin-bottom: 6px;
+}
+
+.section-heading.dark p {
+  color: #f1f1f1;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  background-color: #dfe8ff;
+  padding: 26px;
+  border-radius: 0 0 28px 28px;
+}
+
+.step-card {
+  background: linear-gradient(180deg, #7f8cff 0%, #5A1236 100%);
+  color: var(--color-white);
+  padding: 26px 22px;
+  border-radius: 24px;
+  min-height: 240px;
+  box-shadow: var(--shadow-soft);
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 18px;
+}
+
+.step-card h3 {
+  font-size: 1.45rem;
+  margin-bottom: 12px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.benefit-box {
+  background-color: var(--color-white);
+  border: 1px solid #e2e2e2;
+  padding: 24px;
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.benefit-box h3 {
+  color: var(--color-primary);
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.benefit-box p {
+  color: var(--color-medium-dark);
+}
+
+.cta-box {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 28px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.cta-box h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.cta-box p {
+  max-width: 700px;
+}
+
+@media (max-width: 992px) {
+  .hero-grid,
+  .features-grid,
+  .steps-grid,
+  .benefits-grid,
+  .cta-box {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .hero-text h1 {
+    font-size: 2.3rem;
+  }
+
+  .feature-title-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .section-heading h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-text h1 {
+    font-size: 1.9rem;
+  }
+
+  .feature-card h3,
+  .step-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .steps-grid {
+    padding: 18px;
+  }
+
+  .cta-box {
+    padding: 24px 20px;
+  }
+}

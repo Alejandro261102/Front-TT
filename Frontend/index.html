@@ -1,94 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aplicación Web TT2</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio | Aplicación Web TT2</title>
 
-  <link rel="stylesheet" href="./css/variables.css">
-  <link rel="stylesheet" href="./css/global.css">
-  <link rel="stylesheet" href="./css/components.css">
-  <link rel="stylesheet" href="./css/home.css">
+  <link rel="stylesheet" href="./css/variables.css" />
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/components.css" />
+  <link rel="stylesheet" href="./css/index.css" />
 </head>
 <body>
-  <div class="page-wrapper">
+  <header class="site-header">
+    <div class="container">
+      <a href="./index.html" class="site-logo">Aplicación Web TT2</a>
 
-    <header class="site-header">
-      <div class="container">
-        <a href="./index.html" class="site-logo">Aplicación Web TT2</a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="./index.html">Inicio</a></li>
+          <li><a href="./pages/nosotros.html">Nosotros</a></li>
+          <li><a href="./pages/servicios.html">Servicios</a></li>
+          <li><a href="./pages/login.html" class="nav-btn">Iniciar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-        <nav class="site-nav" aria-label="Navegación principal">
-          <ul>
-            <li><a href="./index.html">INICIO</a></li>
-            <li><a href="#">NOSOTROS</a></li>
-            <li><a href="#">SERVICIOS</a></li>
-            <li><a href="./pages/login.html">LOGIN</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+  <main>
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="section-badge">Plataforma segura de archivos</span>
+          <h1>Protege, organiza y comparte tus archivos con mayor seguridad</h1>
+          <p>
+            Gestiona tus documentos en una plataforma diseñada para almacenamiento,
+            protección y compartición segura de archivos desde cualquier lugar.
+          </p>
 
-    <main>
-      <section class="hero">
-        <div class="container hero-content">
-          <div class="hero-text">
-            <h1>Gestiona tus archivos de forma simple y segura</h1>
-            <p>
-              Organiza, almacena y comparte tus archivos desde una sola plataforma
-              con una interfaz clara, moderna y accesible.
-            </p>
-
-            <div class="hero-buttons">
-              <a href="./pages/login.html" class="btn-primary">Iniciar sesión</a>
-              <a href="#" class="btn-outline">Conocer más</a>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <h2>Tu espacio digital</h2>
-            <p>Accede a tus archivos recientes, carpetas, compartidos y contactos desde un solo lugar.</p>
+          <div class="hero-actions">
+            <a href="./pages/registro.html" class="btn btn-primary">Comenzar ahora</a>
+            <a href="./pages/login.html" class="btn btn-secondary">Ya tengo cuenta</a>
           </div>
         </div>
-      </section>
 
-      <section class="features">
-        <div class="container">
-          <h2 class="section-title">Funciones principales</h2>
-
-          <div class="feature-grid">
-            <article class="feature-box">
-              <h3>Organización</h3>
-              <p>Administra tus carpetas y archivos con una estructura clara.</p>
-            </article>
-
-            <article class="feature-box">
-              <h3>Acceso rápido</h3>
-              <p>Consulta archivos recientes y compartidos en segundos.</p>
-            </article>
-
-            <article class="feature-box">
-              <h3>Seguridad</h3>
-              <p>Mantén tus documentos centralizados con acceso controlado.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p>&copy; 2026 Aplicación Web TT2. Todos los derechos reservados.</p>
-
-        <div class="footer-links">
-          <a href="./index.html">Inicio</a>
-          <a href="#">Nosotros</a>
-          <a href="#">Contacto</a>
+        <div class="hero-visual">
+          <img src="./assets/img/security-main.jpg" alt="Seguridad digital y protección de archivos" />
         </div>
       </div>
-    </footer>
+    </section>
 
-  </div>
+    <section class="features section">
+      <div class="container features-grid">
+        <div class="features-list">
+          <div class="feature-card feature-title-card">
+            <h2>Características Destacadas</h2>
+          </div>
 
-  <script src="./js/main.js"></script>
+          <div class="feature-card">
+            <h3>Cifrado de grado militar</h3>
+            <p>Tus archivos se almacenan protegidos mediante mecanismos avanzados de seguridad.</p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Autenticación doble</h3>
+            <p>Agrega una capa extra de acceso seguro para proteger tu cuenta.</p>
+          </div>
+
+          <div class="feature-card">
+            <h3>Contraseñas seguras</h3>
+            <p>Controles de acceso robustos para una gestión confiable de la información.</p>
+          </div>
+        </div>
+
+        <div class="features-image">
+          <img src="./assets/img/security-shield.jpg" alt="Escudo de seguridad digital" />
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works section">
+      <div class="container">
+        <div class="section-heading dark">
+          <h2>¿Cómo funciona?</h2>
+          <p>Usa la plataforma en tres pasos simples.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">1</div>
+            <h3>Sube tu archivo</h3>
+            <p>Carga documentos, imágenes o archivos importantes dentro de tu espacio personal.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">2</div>
+            <h3>Configura la seguridad</h3>
+            <p>Define permisos, privacidad, contraseña o restricciones de acceso.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">3</div>
+            <h3>Compártelo</h3>
+            <p>Envía tus archivos a contactos específicos de forma más controlada y segura.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="benefits section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>¿Por qué usar esta plataforma?</h2>
+          <p>Diseñada para ofrecer seguridad, simplicidad y control sobre tus archivos.</p>
+        </div>
+
+        <div class="benefits-grid">
+          <article class="benefit-box">
+            <h3>Acceso rápido</h3>
+            <p>Encuentra archivos recientes, compartidos y carpetas en una sola interfaz.</p>
+          </article>
+
+          <article class="benefit-box">
+            <h3>Organización eficiente</h3>
+            <p>Administra tus carpetas y documentos de forma clara y ordenada.</p>
+          </article>
+
+          <article class="benefit-box">
+            <h3>Compartición segura</h3>
+            <p>Comparte únicamente con las personas correctas y con mejores controles de acceso.</p>
+          </article>
+
+          <article class="benefit-box">
+            <h3>Diseño intuitivo</h3>
+            <p>Una experiencia amigable para que cualquier usuario pueda usarla sin complicaciones.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta section">
+      <div class="container cta-box">
+        <div>
+          <h2>Empieza a proteger tus archivos hoy</h2>
+          <p>Crea una cuenta y comienza a usar una plataforma más segura para gestionar tu información.</p>
+        </div>
+        <a href="./pages/registro.html" class="btn btn-primary">Crear cuenta</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Aplicación Web TT2. Todos los derechos reservados.</p>
+
+      <div class="footer-links">
+        <a href="./index.html">Inicio</a>
+        <a href="./pages/nosotros.html">Nosotros</a>
+        <a href="./pages/servicios.html">Servicios</a>
+        <a href="./pages/login.html">Login</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
