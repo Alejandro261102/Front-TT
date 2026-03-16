@@ -1,20 +1,13 @@
 :root {
   --color-primary: #5A1236;
-  --color-secondary: #8E3B5A;
-  --color-accent: #C97A98;
-
+  --color-secondary: #7A3A4F;
   --color-dark: #333333;
   --color-medium: #999999;
+  --color-medium-dark: #555555;
   --color-light: #F1F1F1;
   --color-white: #FFFFFF;
 
   --font-main: "Consolas", "Courier New", monospace;
 
-  --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 30px;
-
-  --shadow-soft: 0 8px 20px rgba(0, 0, 0, 0.08);
-
-  --container-width: 1200px;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
