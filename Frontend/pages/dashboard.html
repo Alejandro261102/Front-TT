@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Aplicación Web TT2</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <div class="app-overlay" id="appOverlay"></div>
+
+  <header class="private-header">
+    <div class="private-header-left">
+      <button class="menu-toggle-btn" id="menuToggleBtn">☰</button>
+      <a href="../index.html" class="private-logo">Aplicación Web TT2</a>
+    </div>
+
+    <div class="private-header-center">
+      <form class="header-search">
+        <input type="text" placeholder="Buscar archivos, carpetas o compartidos..." />
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+
+    <div class="private-header-right">
+      <button class="icon-btn" aria-label="Notificaciones">🔔</button>
+      <div class="user-box">
+        <div class="user-avatar">AH</div>
+        <span class="user-name">Alejandro</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header-mobile">
+        <h3 class="sidebar-title" style="margin:0;">Menú</h3>
+        <button class="sidebar-close-btn" id="closeSidebarBtn">&times;</button>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="./carpetas.html">Carpetas</a></li>
+          <li><a href="./recientes.html">Recientes</a></li>
+          <li><a href="./compartidos.html">Compartidos</a></li>
+          <li><a href="./subir-archivo.html">Subir archivo</a></li>
+          <li><a href="./papelera.html">Papelera</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="dashboard-main">
+      <section class="section-top">
+        <div>
+          <h1>Bienvenido, Alejandro</h1>
+          <p>Aquí puedes consultar tus archivos recientes, carpetas principales y accesos rápidos.</p>
+        </div>
+        <a href="./subir-archivo.html" class="btn btn-primary">+ Subir archivo</a>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card"><h3>Archivos totales</h3><p class="stat-number">128</p></article>
+        <article class="stat-card"><h3>Carpetas</h3><p class="stat-number">16</p></article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/slidebar.js"></script>
+</body>
+</html>
