@@ -29,7 +29,6 @@ function App() {
           {/* Rutas Privadas */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/carpetas" element={<Carpetas />} />
-          <Route path="/perfil" element={<div>Vista de Perfil en construcción</div>} />
           <Route path="/notificaciones" element={<Notificaciones />} />
           <Route path="/recientes" element={<Recientes />} />
           <Route path="/carpeta/:id" element={<CarpetaDetalle />} />
