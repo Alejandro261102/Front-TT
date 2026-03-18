@@ -9,8 +9,8 @@ export default function PublicHeader() {
         <nav className="site-nav" aria-label="Navegación principal">
           <ul>
             <li><Link to="/">Inicio</Link></li>
-            <li><Link to="#">Nosotros</Link></li>
-            <li><Link to="#">Servicios</Link></li>
+            <li><Link to="/nosotros">Nosotros</Link></li>
+            <li><Link to="/servicios">Servicios</Link></li>
             <li><Link to="/login" className="nav-btn">Iniciar sesión</Link></li>
           </ul>
         </nav>
