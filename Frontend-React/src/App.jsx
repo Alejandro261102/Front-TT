@@ -38,8 +38,6 @@ function App() {
           <Route path="/papelera" element={<Papelera />} />
           <Route path="/busqueda" element={<ResultadosBusqueda />} />
           
-
-          {/* Ruta 404: Va SIEMPRE al final */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
