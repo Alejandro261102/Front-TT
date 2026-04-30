@@ -16,6 +16,14 @@ import SubirArchivo from './pages/subirArchivo'
 import ArchivoDetalle from './pages/archivoDetalle'
 import Papelera from './pages/papelera'
 import ResultadosBusqueda from './pages/resultadosBusqueda'
+import AyudaSoporte from './pages/ayudaSoporte'
+import Configuracion from './pages/configuracion'
+import Contactos from './pages/contactosUsuario'
+import Nosotros from './pages/nosotros'
+import Perfil from './pages/perfilUsuario'
+import RecuperacionContrasena from './pages/recuperacionContrasena'
+import Registro from './pages/registroUsuario'
+import TerminosCondiciones from './pages/terminosCondiciones'
 
 function App() {
   return (
@@ -25,6 +33,14 @@ function App() {
           {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/ayuda-soporte" element={<AyudaSoporte />} />
+          <Route path="/configuracion" element={<Configuracion />} />
+          <Route path="/contactos" element={<Contactos />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/recuperacion-contrasena" element={<RecuperacionContrasena />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
 
           {/* Rutas Privadas */}
           <Route path="/dashboard" element={<Dashboard />} />
