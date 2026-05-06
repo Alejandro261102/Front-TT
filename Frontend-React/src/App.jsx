@@ -21,9 +21,10 @@ import Configuracion from './pages/configuracion'
 import Contactos from './pages/contactosUsuario'
 import Nosotros from './pages/nosotros'
 import Perfil from './pages/perfilUsuario'
-import RecuperacionContrasena from './pages/recuperacionContrasena'
 import Registro from './pages/registroUsuario'
 import TerminosCondiciones from './pages/terminosCondiciones'
+import RegistroUsuario from './pages/registroUsuario'
+import ContactosUsuario from './pages/contactosUsuario'
 
 function App() {
   return (
@@ -33,13 +34,8 @@ function App() {
           {/* Rutas Públicas */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/ayuda-soporte" element={<AyudaSoporte />} />
-          <Route path="/configuracion" element={<Configuracion />} />
-          <Route path="/contactos" element={<Contactos />} />
           <Route path="/nosotros" element={<Nosotros />} />
-          <Route path="/perfil" element={<Perfil />} />
-          <Route path="/recuperacion-contrasena" element={<RecuperacionContrasena />} />
-          <Route path="/registro" element={<Registro />} />
+          <Route path="/registro" element={<RegistroUsuario />} />
           <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
 
           {/* Rutas Privadas */}
@@ -53,6 +49,10 @@ function App() {
           <Route path="/archivo/:id" element={<ArchivoDetalle />} />
           <Route path="/papelera" element={<Papelera />} />
           <Route path="/busqueda" element={<ResultadosBusqueda />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/configuracion" element={<Configuracion />} />
+          <Route path="/contactos" element={<Contactos/>} />
+          <Route path="/ayuda-soporte" element={<AyudaSoporte />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

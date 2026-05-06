@@ -1,12 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import PublicHeader from '../components/PublicHeader'
-import Footer from '../components/Footer'
+import PrivateLayout from '../components/PrivateLayout'
 
 export default function AyudaSoporte() {
   return (
-    <>
-      <PublicHeader />
+    <PrivateLayout>
 
       <main className="support-page">
         {/* Sección Hero de Soporte */}
@@ -94,7 +91,7 @@ export default function AyudaSoporte() {
         </section>
       </main>
 
-      <Footer />
-    </>
+      
+    </PrivateLayout>
   )
 }
