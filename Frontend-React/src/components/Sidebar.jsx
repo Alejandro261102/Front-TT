@@ -27,7 +27,7 @@ export default function Sidebar({ isOpen, closeSidebar }) {
           <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} />
           
           <li><NavLink to="/configuracion" onClick={closeSidebar}>Configuración</NavLink></li>
-          <li><NavLink to="/ayudaSoporte" onClick={closeSidebar}>Ayuda</NavLink></li>
+          <li><NavLink to="/ayuda-soporte" onClick={closeSidebar}>Ayuda</NavLink></li>
         </ul>
       </nav>
     </aside>
