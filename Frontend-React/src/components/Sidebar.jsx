@@ -10,10 +10,10 @@ export default function Sidebar({ isOpen, closeSidebar }) {
 
       <nav className="sidebar-nav">
         <ul>
-          <li><NavLink to="/nosotros" onClick={closeSidebar}>Nosotros</NavLink></li>
-          <li><NavLink to="/servicios" onClick={closeSidebar}>Servicios</NavLink></li>
+        {/* <li><NavLink to="/nosotros" onClick={closeSidebar}>Nosotros</NavLink></li> */}
+        {/* <li><NavLink to="/servicios" onClick={closeSidebar}>Servicios</NavLink></li> */}
 
-          <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} />
+        {/* <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} /> */}
 
           <li><NavLink to="/perfil" onClick={closeSidebar}>Perfil</NavLink></li>
           <li><NavLink to="/dashboard" onClick={closeSidebar}>Dashboard</NavLink></li>

@@ -134,7 +134,7 @@ export default function Home() {
               <Link to="/registro" className="btn btn-primary">Crear cuenta</Link>
               
               {/* Vínculo a Términos y Condiciones */}
-              <Link to="/terminosCondiciones" style={{ fontSize: '0.85rem', color: '#666', textDecoration: 'underline' }}>
+              <Link to="/terminos-condiciones" style={{ fontSize: '0.85rem', color: '#666', textDecoration: 'underline' }}>
                 Consultar Términos y Condiciones
               </Link>
             </div>

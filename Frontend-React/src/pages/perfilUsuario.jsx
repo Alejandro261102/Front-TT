@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PrivateLayout from '../components/PrivateLayout'
 
 export default function PerfilUsuario() {
-  // Datos de prueba simulando la respuesta del Backend (RF-005, RF-020)
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null); // Referencia para el input de archivo oculto
+  const [fotoPerfil, setFotoPerfil] = useState(null);
+
+  // Datos de prueba (RF-005, RF-020)
   const datosUsuario = {
-    nombre: "Ambar Stephania García",
-    boleta: "2026A202",
+    nombre: "Héctor Alejandro Aranda ",
     email: "ambar.garcia@ejemplo.com",
     telefono: "+52 55 1122 3344",
     almacenamientoUsado: "1.2 GB",
@@ -13,83 +17,136 @@ export default function PerfilUsuario() {
     porcentaje: 24
   };
 
+  // Función para activar el selector de archivos
+  const handleEditFotoClick = () => {
+    fileInputRef.current.click();
+  };
+
+  // Función para manejar la carga de la imagen
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFotoPerfil(imageUrl);
+      // Aquí podrías añadir la lógica para subir a Azure en el futuro
+    }
+  };
+
   return (
     <PrivateLayout>
+      <main className="profile-page">
+        <header className="section-heading">
+          <h1>Perfil de Usuario</h1>
+          <p>Administra tu identidad digital y revisa tu estado de almacenamiento seguro.</p>
+        </header>
 
-      <main className="profile-page section">
-        <div className="container">
-          <header className="section-heading">
-            <span className="section-badge">Mi Cuenta</span>
-            <h1>Perfil de Usuario</h1>
-            <p>Administra tu identidad digital y revisa tu estado de almacenamiento seguro.</p>
-          </header>
-
-          <div className="profile-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem', marginTop: '3rem' }}>
-            
-            {/* Tarjeta de Información General */}
-            <aside className="benefit-box shadow-sm" style={{ textAlign: 'center', padding: '2rem' }}>
-              <div style={{ 
-                width: '120px', 
-                height: '120px', 
+        <div className="profile-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem', marginTop: '3rem' }}>
+          
+          {/* Tarjeta de Información General */}
+          <aside className="benefit-box shadow-sm" style={{ textAlign: 'center', padding: '2rem' }}>
+            <div 
+              className="avatar-container"
+              style={{ 
+                width: '140px', 
+                height: '140px', 
                 backgroundColor: 'var(--primary-color, #4A142C)', 
                 borderRadius: '50%', 
                 margin: '0 auto 1.5rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '3rem',
-                color: 'white'
-              }}>
-                {datosUsuario.nombre.charAt(0)}
-              </div>
-              <h3 style={{ marginBottom: '0.5rem' }}>{datosUsuario.nombre}</h3>
-              <p style={{ color: '#666', fontSize: '0.9rem' }}>Boleta: {datosUsuario.boleta}</p>
-              <button className="btn btn-secondary btn-block" style={{ marginTop: '1rem' }}>Editar Foto</button>
-            </aside>
+                fontSize: '3.5rem',
+                color: 'white',
+                overflow: 'hidden',
+                border: '4px solid #f8fafc'
+              }}
+            >
+              {fotoPerfil ? (
+                <img src={fotoPerfil} alt="Perfil" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                datosUsuario.nombre.charAt(0)
+              )}
+            </div>
 
-            {/* Detalles y Estadísticas de Almacenamiento (RF-020) */}
-            <section className="profile-details">
-              <div className="benefit-box shadow-sm" style={{ marginBottom: '2rem' }}>
-                <h3 style={{ borderBottom: '1px solid #eee', paddingBottom: '1rem' }}>Información de Contacto</h3>
-                <div style={{ padding: '1rem 0' }}>
-                  <p><strong>Correo:</strong> {datosUsuario.email}</p>
-                  <p><strong>Teléfono:</strong> {datosUsuario.telefono}</p>
+            <h3 style={{ marginBottom: '0.5rem' }}>{datosUsuario.nombre}</h3>
+            
+            {/* Input de archivo oculto */}
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              style={{ display: 'none' }} 
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            
+            <button 
+              className="btn btn-secondary btn-block" 
+              style={{ marginTop: '1rem', width: '100%' }}
+              onClick={handleEditFotoClick}
+            >
+              📷 Editar Foto
+            </button>
+          </aside>
+
+          {/* Detalles y Estadísticas */}
+          <section className="profile-details">
+            <div className="benefit-box shadow-sm" style={{ marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '1rem', marginBottom: '1rem' }}>
+                <h3 style={{ margin: 0 }}>Información de Contacto</h3>
+                <span style={{ fontSize: '1.2rem' }}>🆔</span>
+              </div>
+              
+              <div className="contact-info-list" style={{ marginBottom: '1.5rem' }}>
+                <div className="form-group">
+                  <label className="form-label">Correo electrónico</label>
+                  <div className="input-wrapper">
+                    <span className="input-icon">📧</span>
+                    <input className="form-control-modern" value={datosUsuario.email} readOnly disabled />
+                  </div>
                 </div>
-                <button className="btn btn-primary">Actualizar Datos</button>
+
+                <div className="form-group">
+                  <label className="form-label">Teléfono</label>
+                  <div className="input-wrapper">
+                    <span className="input-icon">📱</span>
+                    <input className="form-control-modern" value={datosUsuario.telefono} readOnly disabled />
+                  </div>
+                </div>
               </div>
 
-              <div className="benefit-box shadow-sm">
-                <h3>Estado del Almacenamiento (Azure)</h3>
-                <div style={{ marginTop: '1.5rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                    <span>Usado: {datosUsuario.almacenamientoUsado}</span>
-                    <span>Total: {datosUsuario.almacenamientoTotal}</span>
-                  </div>
-                  {/* Barra de progreso de almacenamiento */}
-                  <div style={{ 
-                    width: '100%', 
-                    backgroundColor: '#eee', 
-                    height: '12px', 
-                    borderRadius: '6px',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{ 
-                      width: `${datosUsuario.porcentaje}%`, 
-                      backgroundColor: 'var(--accent-color, #C13676)', 
-                      height: '100%' 
-                    }}></div>
-                  </div>
-                  <p style={{ marginTop: '1rem', fontSize: '0.85rem', color: '#666' }}>
-                    Tu espacio se utiliza para almacenar archivos cifrados con extensión .seg
-                  </p>
-                </div>
+              <button 
+                className="btn btn-primary" 
+                style={{ width: '100%' }}
+                onClick={() => navigate('/configuracion')}
+              >
+                ⚙️ Actualizar Datos en Configuración
+              </button>
+            </div>
+
+            {/* Almacenamiento Azure */}
+            <div className="benefit-box shadow-sm" style={{ borderLeft: '4px solid var(--accent-color, #C13676)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem' }}>
+                <span style={{ fontSize: '1.5rem' }}>☁️</span>
+                <h3 style={{ margin: 0 }}>Estado del Almacenamiento (Azure)</h3>
               </div>
-            </section>
-          </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem', fontWeight: '600' }}>
+                <span>Usado: {datosUsuario.almacenamientoUsado}</span>
+                <span style={{ color: '#64748b' }}>Capacidad: {datosUsuario.almacenamientoTotal}</span>
+              </div>
+
+              <div style={{ width: '100%', backgroundColor: '#e2e8f0', height: '14px', borderRadius: '7px', overflow: 'hidden', marginBottom: '1rem' }}>
+                <div style={{ width: `${datosUsuario.porcentaje}%`, backgroundColor: 'var(--accent-color, #C13676)', height: '100%', transition: 'width 0.5s ease-in-out' }}></div>
+              </div>
+
+              <p style={{ fontSize: '0.85rem', color: '#64748b', fontStyle: 'italic' }}>
+                * Los archivos se almacenan con cifrado AES-256 (extensión .seg).
+              </p>
+            </div>
+          </section>
         </div>
-      </main>
-
       
+    </main>
     </PrivateLayout>
   )
 }
