@@ -10,7 +10,7 @@ export default function PublicHeader() {
           <ul>
             <li><Link to="/">Inicio</Link></li>
             <li><Link to="/nosotros">Nosotros</Link></li>
-            <li><Link to="/servicios">Servicios</Link></li>
+            {/* <li><Link to="/servicios">Servicios</Link></li> */}
             <li><Link to="/login" className="nav-btn">Iniciar sesión</Link></li>
           </ul>
         </nav>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PrivateLayout from '../components/PrivateLayout'
 
 export default function AyudaSoporte() {
