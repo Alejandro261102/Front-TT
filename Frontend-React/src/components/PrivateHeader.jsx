@@ -12,7 +12,6 @@ const getSecurityBadge = (status) => {
 const fetchLiveSearchResults = async (query, currentPath) => {
   if (!query) return [];
   
-  // Simulamos que el backend recibe la ruta actual y filtra en base a eso
   let resultados = [
     { id: 'f-1', type: 'file', name: 'Reporte_Avance.pdf', icon: '📄', security: 'encrypted', section: '/dashboard' },
     { id: 'f-2', type: 'file', name: 'Presupuesto_Final.xlsx', icon: '📊', security: 'password', section: '/recientes' },
@@ -21,11 +20,8 @@ const fetchLiveSearchResults = async (query, currentPath) => {
     { id: 'del-1', type: 'file', name: 'Reporte_Viejo.docx', icon: '📝', security: 'public', section: '/papelera' }
   ];
 
-  // Filtramos por texto
   let matches = resultados.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
 
-  // Filtramos por contexto (Si estoy en papelera, solo busco en papelera. Si estoy en carpetas, busco carpetas, etc.)
-  // Nota: En un backend real, pasarías "currentPath" como parámetro en la URL del fetch
   if (currentPath.includes('/papelera')) {
     matches = matches.filter(item => item.section === '/papelera');
   } else if (currentPath.includes('/carpetas')) {
@@ -39,18 +35,20 @@ const fetchLiveSearchResults = async (query, currentPath) => {
 
 export default function PrivateHeader({ toggleSidebar }) {
   const navigate = useNavigate()
-  const location = useLocation() // <--- Para saber en qué página estamos
+  const location = useLocation()
   
-  // Estados originales
+  // Estados de Búsqueda y Notificaciones
   const [showNotifications, setShowNotifications] = useState(false)
-  
-  // Estados de Búsqueda
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [showResults, setShowResults] = useState(false)
-  const searchRef = useRef(null) // Para detectar clics fuera del buscador
+  const searchRef = useRef(null)
 
-  // Efecto para hacer la búsqueda en vivo cuando el usuario escribe
+  // NUEVOS ESTADOS: Menú de Usuario
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const userMenuRef = useRef(null)
+
+  // Efecto para hacer la búsqueda en vivo
   useEffect(() => {
     const doSearch = async () => {
       if (searchTerm.trim().length > 0) {
@@ -65,26 +63,35 @@ export default function PrivateHeader({ toggleSidebar }) {
     doSearch();
   }, [searchTerm, location.pathname])
 
-  // Efecto para cerrar los resultados si se hace clic fuera del buscador
+  // Efecto para cerrar menús al hacer clic fuera (Buscador y Perfil)
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Cerrar buscador
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowResults(false);
+      }
+      // Cerrar menú de usuario
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setShowUserMenu(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [])
 
-  // Si da "Enter", lo mandamos a la página completa de búsqueda
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       setShowResults(false);
-      // Navegamos pasando la búsqueda y el contexto por la URL
       navigate(`/busqueda?q=${encodeURIComponent(searchTerm)}&context=${encodeURIComponent(location.pathname)}`);
     }
   }
+
+  const handleLogout = () => {
+    // Aquí puedes limpiar estados globales o tokens si los tuvieras
+    setShowUserMenu(false);
+    navigate('/'); // Redirige a la página principal (Nosotros)
+  };
 
   return (
     <header className="private-header">
@@ -93,6 +100,7 @@ export default function PrivateHeader({ toggleSidebar }) {
         <Link to="/dashboard" className="private-logo">Aplicación Web TT2</Link>
       </div>
 
+      {/* --- BUSCADOR --- */}
       <div className="private-header-center" ref={searchRef} style={{ position: 'relative' }}>
         <form className="header-search" onSubmit={handleSearchSubmit}>
           <input 
@@ -100,28 +108,25 @@ export default function PrivateHeader({ toggleSidebar }) {
             placeholder={`Buscar en ${location.pathname === '/dashboard' ? 'todo tu espacio' : 'esta sección'}...`} 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onFocus={() => { if(searchTerm) setShowResults(true) }} // Vuelve a mostrar si hay texto
+            onFocus={() => { if(searchTerm) setShowResults(true) }}
           />
           <button type="submit">🔍</button>
         </form>
 
-        {/* MENÚ DESPLEGABLE DE BÚSQUEDA EN VIVO */}
         {showResults && (
-          <div style={{
+          <div className="search-results-dropdown" style={{
             position: 'absolute', top: '110%', left: 0, width: '100%',
-            backgroundColor: 'var(--color-white)', boxShadow: 'var(--shadow-medium)',
+            backgroundColor: 'white', boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             borderRadius: '12px', border: '1px solid #eaeaea', zIndex: 1000,
             overflow: 'hidden', textAlign: 'left'
           }}>
             {searchResults.length === 0 ? (
-              <div style={{ padding: '16px', color: 'var(--color-medium-dark)', textAlign: 'center' }}>
-                No se encontraron coincidencias para "{searchTerm}"
+              <div style={{ padding: '16px', color: '#666', textAlign: 'center' }}>
+                No se encontraron coincidencias
               </div>
             ) : (
               <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                <div style={{ padding: '8px 16px', backgroundColor: '#f9f9f9', borderBottom: '1px solid #eaeaea', fontSize: '0.8rem', color: 'var(--color-medium-dark)' }}>
-                  Resultados rápidos
-                </div>
+                <div style={{ padding: '8px 16px', backgroundColor: '#f9f9f9', fontSize: '0.8rem', color: '#888' }}>Resultados rápidos</div>
                 {searchResults.map(item => (
                   <div 
                     key={item.id}
@@ -130,57 +135,63 @@ export default function PrivateHeader({ toggleSidebar }) {
                       setSearchTerm('');
                       navigate(item.type === 'folder' ? `/carpeta/${item.id}` : `/archivo/${item.id}`);
                     }}
-                    style={{ 
-                      padding: '12px 16px', borderBottom: '1px solid #f5f5f5', 
-                      display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer',
-                      transition: 'background-color 0.2s'
-                    }}
-                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f4f8ff'}
-                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    className="search-item"
+                    style={{ padding: '12px 16px', borderBottom: '1px solid #f5f5f5', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
                   >
-                    <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
-                    <div style={{ flex: 1, overflow: 'hidden' }}>
-                      <p style={{ margin: 0, color: 'var(--color-dark)', fontSize: '0.95rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {getSecurityBadge(item.security)} {item.name}
-                      </p>
-                    </div>
+                    <span>{item.icon}</span>
+                    <p style={{ margin: 0, fontSize: '0.95rem' }}>{getSecurityBadge(item.security)} {item.name}</p>
                   </div>
                 ))}
-              </div>
-            )}
-            {/* Botón para ver todos los resultados en pantalla completa */}
-            {searchResults.length > 0 && (
-              <div 
-                style={{ padding: '12px', textAlign: 'center', borderTop: '1px solid #eaeaea', backgroundColor: '#fafafa', cursor: 'pointer', color: 'var(--color-primary)', fontWeight: 'bold', fontSize: '0.9rem' }}
-                onClick={handleSearchSubmit}
-              >
-                Ver todos los resultados (Enter)
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* --- SECCIÓN DERECHA INTACTA (Notificaciones y Perfil) --- */}
+      {/* --- SECCIÓN DERECHA --- */}
       <div className="private-header-right">
-        {/* Aquí va tu código idéntico de notificaciones y user-box que ya teníamos */}
-        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          <button className="icon-btn" aria-label="Notificaciones" onClick={() => setShowNotifications(!showNotifications)} style={{ position: 'relative' }}>
-            🔔
-          </button>
+        <div style={{ position: 'relative' }}>
+          <button className="icon-btn" onClick={() => setShowNotifications(!showNotifications)}>🔔</button>
           {showNotifications && (
-            <div style={{ position: 'absolute', top: '120%', right: '0', width: '320px', backgroundColor: 'var(--color-white)', boxShadow: 'var(--shadow-medium)', borderRadius: '12px', border: '1px solid #eaeaea', zIndex: 1000, overflow: 'hidden', textAlign: 'left' }}>
-              <div style={{ padding: '16px', borderBottom: '1px solid #eaeaea' }}><h3 style={{ margin: 0, fontSize: '1rem', color: 'var(--color-dark)' }}>Notificaciones</h3></div>
-              <div style={{ padding: '16px', color: 'var(--color-medium-dark)', textAlign: 'center' }}>No hay notificaciones nuevas.</div>
+            <div className="notifications-dropdown" style={{ position: 'absolute', top: '120%', right: '0', width: '300px', backgroundColor: 'white', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', borderRadius: '12px', border: '1px solid #eaeaea', zIndex: 1000, padding: '16px' }}>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Notificaciones</h3>
+              <p style={{ color: '#888', textAlign: 'center', margin: 0 }}>No hay novedades</p>
             </div>
           )}
         </div>
-        <Link to="/perfil" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div className="user-box">
+
+        {/* --- MENU DESPLEGABLE DE USUARIO --- */}
+        <div className="user-menu-container" ref={userMenuRef} style={{ position: 'relative' }}>
+          <div className="user-box" onClick={() => setShowUserMenu(!showUserMenu)} style={{ cursor: 'pointer' }}>
             <div className="user-avatar">AH</div>
             <span className="user-name">Alejandro</span>
+            <span style={{ fontSize: '0.7rem', marginLeft: '5px' }}>{showUserMenu ? '▲' : '▼'}</span>
           </div>
-        </Link>
+
+          {showUserMenu && (
+            <div className="user-dropdown shadow-sm" style={{
+              position: 'absolute', top: '120%', right: '0', width: '190px',
+              backgroundColor: 'white', borderRadius: '10px', border: '1px solid #eaeaea',
+              zIndex: 1001, overflow: 'hidden', padding: '5px 0'
+            }}>
+              <button 
+                className="dropdown-item"
+                onClick={() => { navigate('/configuracion'); setShowUserMenu(false); }}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}
+              >
+                ⚙️ Configuración
+              </button>
+              
+              <button 
+                className="dropdown-item logout"
+                onClick={handleLogout}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: '#dc3545', borderTop: '1px solid #eee' }}
+              >
+                🚪 Cerrar Sesión
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   )

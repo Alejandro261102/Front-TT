@@ -123,14 +123,21 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Sección CTA */}
+       {/* Sección CTA */}
         <section className="cta section">
           <div className="container cta-box">
             <div>
               <h2>Empieza a proteger tus archivos hoy</h2>
               <p>Crea una cuenta y comienza a usar una plataforma más segura para gestionar tu información.</p>
             </div>
-            <Link to="/registro" className="btn btn-primary">Crear cuenta</Link>
+            <div className="cta-actions" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+              <Link to="/registro" className="btn btn-primary">Crear cuenta</Link>
+              
+              {/* Vínculo a Términos y Condiciones */}
+              <Link to="/terminos-condiciones" style={{ fontSize: '0.85rem', color: '#666', textDecoration: 'underline' }}>
+                Consultar Términos y Condiciones
+              </Link>
+            </div>
           </div>
         </section>
       </main>

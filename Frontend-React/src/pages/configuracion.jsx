@@ -15,7 +15,6 @@ export default function Configuracion() {
     <PrivateLayout>
       <main className="settings-page">
         <header className="section-heading">
-          <span className="section-badge">Panel de Control</span>
           <h1>Configuración de Cuenta</h1>
           <p>Gestiona tu información personal y los parámetros de seguridad de tu cuenta.</p>
         </header>
@@ -28,16 +27,37 @@ export default function Configuracion() {
               <span style={{ fontSize: '1.5rem' }}>👤</span>
               <h3 style={{ margin: 0 }}>Información Personal</h3>
             </div>
+            
             <form className="auth-form" style={{ maxWidth: '100%' }}>
               <div className="form-group">
-                <label>Nombre completo</label>
-                <input type="text" placeholder="Ambar Stephania García" />
+                <label className="form-label">Nombre completo</label>
+                <div className="input-wrapper">
+                  <span className="input-icon">👤</span>
+                  <input 
+                    type="text" 
+                    className="form-control-modern" 
+                    placeholder="Introducir Nombre Completo" 
+                  />
+                </div>
               </div>
+
               <div className="form-group">
-                <label>Correo electrónico</label>
-                <input type="email" placeholder="ambar.garcia@ejemplo.com" disabled />
+                <label className="form-label">Correo electrónico</label>
+                <div className="input-wrapper">
+                  <span className="input-icon">📧</span>
+                  <input 
+                    type="email" 
+                    className="form-control-modern" 
+                    placeholder="ambar.garcia@ejemplo.com" 
+                    disabled 
+                    style={{ cursor: 'not-allowed', backgroundColor: '#f0f0f0' }}
+                  />
+                </div>
               </div>
-              <button type="button" className="btn btn-secondary">Actualizar Perfil</button>
+
+              <button type="button" className="btn btn-secondary" style={{ width: '100%', marginTop: '1rem' }}>
+                Actualizar Perfil
+              </button>
             </form>
           </section>
 
@@ -47,39 +67,50 @@ export default function Configuracion() {
               <span style={{ fontSize: '1.5rem' }}>🔐</span>
               <h3 style={{ margin: 0 }}>Seguridad y Autenticación</h3>
             </div>
+            
             <div className="form-group">
-              <label>Número Celular para SMS</label>
+              <label className="form-label">Número Celular para SMS</label>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <input type="tel" placeholder="+52 55 1122 3344" style={{ flex: 1 }} />
-                <button type="button" className="btn btn-primary">Cambiar</button>
+                <div className="input-wrapper" style={{ flex: 1 }}>
+                  <span className="input-icon">📱</span>
+                  <input 
+                    type="tel" 
+                    className="form-control-modern" 
+                    placeholder="+52 55 1122 3344" 
+                    disabled
+                    style={{ cursor: 'not-allowed', backgroundColor: '#f0f0f0' }}
+                  />
+                </div>
+                {/* <button type="button" className="btn btn-primary">Cambiar</button> */}
               </div>
-              <small className="form-help">Utilizado para el envío de tokens de cifrado.</small>
+              <small className="form-help">Utilizado para el envío de tokens de cifrado vía Azure.</small>
             </div>
           </section>
 
-          {/* SECCIÓN 3: RECUPERACIÓN DE CONTRASEÑA (Integrada) */}
+          {/* SECCIÓN 3: CAMBIO DE CONTRASEÑA (Integrada) */}
           <section className="benefit-box shadow-sm">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <span style={{ fontSize: '1.5rem' }}>📩</span>
-              <h3 style={{ margin: 0 }}>Restablecimiento de Credenciales</h3>
+              <h3 style={{ margin: 0 }}>Cambio de Contraseña</h3>
             </div>
             
             {!emailEnviado ? (
               <div className="recovery-integration">
                 <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
-                  ¿Deseas cambiar tu contraseña de forma segura? Te enviaremos un enlace de restablecimiento a tu correo electrónico registrado.
+                  ¿Deseas cambiar tu contraseña de forma segura? Te enviaremos un enlace de restablecimiento a tu correo registrado.
                 </p>
                 <button 
                   onClick={handleRecuperacionSoporte} 
                   className="btn btn-secondary"
+                  style={{ width: '100%' }}
                 >
                   Enviar enlace de recuperación
                 </button>
               </div>
             ) : (
-              <div style={{ backgroundColor: '#f0fdf4', padding: '1rem', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+              <div style={{ backgroundColor: '#f0fdf4', padding: '1rem', borderRadius: '8px', border: '1px solid #bbf7d0', textAlign: 'center' }}>
                 <p style={{ color: '#166534', margin: 0, fontSize: '0.9rem' }}>
-                  <strong>¡Enlace enviado!</strong> Revisa tu bandeja de entrada para continuar con el cambio de contraseña.
+                  <strong>¡Enlace enviado!</strong> Revisa tu bandeja de entrada para continuar.
                 </p>
               </div>
             )}
@@ -92,12 +123,19 @@ export default function Configuracion() {
               <h3 style={{ margin: 0 }}>Preferencias de Almacenamiento</h3>
             </div>
             <div className="form-group">
-              <label>Expiración por defecto de archivos</label>
-              <select className="form-control" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #ddd' }}>
-                <option>24 horas</option>
-                <option>7 días</option>
-                <option>30 días</option>
-              </select>
+              <label className="form-label">Expiración por defecto de archivos</label>
+              <div className="input-wrapper">
+                <span className="input-icon">⏳</span>
+                <select 
+                  className="form-control-modern" 
+                  style={{ paddingLeft: '40px', cursor: 'pointer' }}
+                >
+                  <option>24 horas</option>
+                  <option>7 días</option>
+                  <option>30 días</option>
+                </select>
+              </div>
+              <small className="form-help">Configuración de políticas de ciclo de vida del dato.</small>
             </div>
           </section>
 
