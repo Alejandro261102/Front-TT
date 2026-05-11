@@ -25,6 +25,7 @@ import Registro from './pages/registroUsuario'
 import TerminosCondiciones from './pages/terminosCondiciones'
 import RegistroUsuario from './pages/registroUsuario'
 import ContactosUsuario from './pages/contactosUsuario'
+import Favoritos from './pages/favoritos'
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/configuracion" element={<Configuracion />} />
           <Route path="/contactos" element={<Contactos/>} />
           <Route path="/ayuda-soporte" element={<AyudaSoporte />} />
+          <Route path="/favoritos" element={<Favoritos />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

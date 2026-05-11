@@ -256,6 +256,371 @@ button, input, textarea, select { font: inherit; }
   .login-buttons button, .login-buttons .btn-secondary { width: 100%; min-width: unset; }
 }
 
+.file-viewer-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #2c2c2c; /* Fondo oscuro tipo visor */
+  color: white;
+  overflow: hidden;
+}
+
+.viewer-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 56px;
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333;
+  z-index: 10;
+}
+
+.toolbar-left, .toolbar-center, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.viewer-filename {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.toolbar-btn {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.toolbar-btn:hover {
+  background-color: #333;
+  color: white;
+}
+
+.btn-close:hover {
+  background-color: #c41e3a; /* Color guinda para el cierre */
+}
+
+.zoom-indicator {
+  font-size: 13px;
+  min-width: 45px;
+  text-align: center;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #444;
+  margin: 0 5px;
+}
+
+.document-viewport {
+  flex: 1;
+  overflow: auto;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #383838;
+}
+
+.document-canvas {
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  width: 100%;
+  max-width: 900px;
+  min-height: 1100px;
+  transition: transform 0.2s ease-out;
+}
+
+.viewer-iframe {
+  width: 100%;
+  height: 100vh;
+  border: none;
+}
+
+.no-preview {
+  display: flex;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+/* --- Modales de Archivo --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.details-modal, .share-modal {
+  background: white;
+  width: 90%;
+  max-width: 450px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  overflow: hidden;
+  color: #333;
+}
+
+.details-header, .share-header {
+  padding: 20px;
+  background-color: var(--color-primary); /* Guinda IPN */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details-header h2, .share-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.close-icon-btn, .close-share {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.details-content, .share-body {
+  padding: 24px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+.detail-value {
+  color: #1a1a1a;
+  font-size: 14px;
+}
+
+.share-input-group {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0 25px 0;
+}
+
+.share-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+}
+
+.share-input:focus {
+  border-color: var(--color-secondary); /* Azul ESCOM */
+}
+
+.btn-primary-action {
+  background-color: var(--color-secondary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.link-copy-box {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: flex;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.link-copy-box input {
+  background: transparent;
+  border: none;
+  flex: 1;
+  padding: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.link-copy-box button {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.details-footer {
+  padding: 15px 20px;
+  background: #f9f9f9;
+  text-align: right;
+}
+
+.btn-secondary-outline {
+  border: 1px solid #ddd;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.text-uppercase { text-transform: uppercase; }
+
+/* --- Estilos compartidos para Modales de Acción --- */
+.share-section {
+  margin-bottom: 20px;
+}
+
+.share-label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.search-recipient-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.permissions-box {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.permission-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.permission-row:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.permission-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.permission-desc {
+  font-size: 12px;
+  color: #777;
+}
+
+.share-select {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 13px;
+  outline: none;
+}
+
+.share-footer {
+  padding: 15px 24px;
+  background: #f1f3f4;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* --- Toggle Switch Design --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--color-secondary); /* Azul ESCOM */
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 /* --- ESTILOS PARA INPUTS CONFIGURACIÓN DE CUENTA--- */
 
 .form-group {
