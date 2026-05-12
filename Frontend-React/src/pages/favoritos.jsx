@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PrivateLayout from '../components/PrivateLayout'
-import CompartirModal from '../components/CompartirModal'; // Nuevo
+import CompartirModal from '../components/CompartirModal';
 import DetallesModal from '../components/DetallesModal'
 
 // Función auxiliar para los niveles de seguridad
@@ -39,7 +39,7 @@ export default function Recientes() {
         const result = await fetchRecentData();
         setItems(result);
       } catch (err) {
-        setError('No se pudieron cargar los elementos recientes.');
+        setError('No se pudieron cargar los elementos favoritos.');
       } finally {
         setIsLoading(false);
       }
@@ -55,18 +55,18 @@ export default function Recientes() {
     <PrivateLayout>
       <section className="section-top" style={{ marginBottom: '24px' }}>
         <div>
-          <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Recientes</h1>
-          <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que has abierto o modificado últimamente.</p>
+          <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Favoritos</h1>
+          <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que has marcado como favoritos.</p>
         </div>
       </section>
 
-      {isLoading && <div style={{ padding: '40px', textAlign: 'center' }}>Cargando actividad reciente...</div>}
+      {isLoading && <div style={{ padding: '40px', textAlign: 'center' }}>Cargando favoritos...</div>}
       {error && <div style={{ padding: '20px', backgroundColor: '#ffe5e5', color: '#d93025' }}>{error}</div>}
 
       {!isLoading && !error && (
         <section>
           {items.length === 0 ? (
-             <div style={{ padding: '40px', textAlign: 'center', color: 'var(--color-medium-dark)' }}>No hay actividad reciente.</div>
+             <div style={{ padding: '40px', textAlign: 'center', color: 'var(--color-medium-dark)' }}>No hay elementos favoritos.</div>
           ) : (
             <div className="cards-grid">
               {items.map(item => (

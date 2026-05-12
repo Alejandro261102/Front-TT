@@ -63,22 +63,7 @@ export default function Carpetas() {
       {error && <div style={{ padding: '20px', backgroundColor: '#ffe5e5', color: '#d93025' }}>{error}</div>}
 
       {!isLoading && !error && data && (
-        <>
-          <section className="stats-grid">
-            <article className="stat-card" style={{ cursor: 'pointer' }}>
-              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Total de carpetas</span>
-              <p className="stat-number">{data.stats.total}</p>
-            </article>
-            <article className="stat-card" onClick={() => navigate('/compartidos')} style={{ cursor: 'pointer' }}>
-              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Compartidas</span>
-              <p className="stat-number">{data.stats.shared}</p>
-            </article>
-            <article className="stat-card" style={{ cursor: 'pointer' }}>
-              <span style={{ color: 'var(--color-medium-dark)', fontWeight: '600' }}>Favoritas</span>
-              <p className="stat-number">{data.stats.favorites}</p>
-            </article>
-          </section>
-
+        <>  
           <section style={{ marginTop: '36px' }}>
             <h2 style={{ color: 'var(--color-primary)', marginBottom: '20px', fontSize: '1.5rem' }}>Carpetas disponibles</h2>
             <div className="cards-grid">
@@ -105,7 +90,7 @@ export default function Carpetas() {
           </section>
         </>
       )}
-      {/* Nuestro nuevo Modal Global */}
+      {/* Modal Global */}
       <DetallesModal 
         elemento={elementoSeleccionado} 
         onClose={() => setElementoSeleccionado(null)} 
