@@ -29,6 +29,7 @@ export default function Configuracion() {
             </div>
             
             <form className="auth-form" style={{ maxWidth: '100%' }}>
+
               <div className="form-group">
                 <label className="form-label">Nombre completo</label>
                 <div className="input-wrapper">
@@ -36,7 +37,21 @@ export default function Configuracion() {
                   <input 
                     type="text" 
                     className="form-control-modern" 
-                    placeholder="Introducir Nombre Completo" 
+                    placeholder="Hector Alejandro Hernandez Aranda" 
+                    disabled 
+                    style={{ cursor: 'not-allowed', backgroundColor: '#f0f0f0' }}
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Nombre de Usuario</label>
+                <div className="input-wrapper">
+                  <span className="input-icon">👤</span>
+                  <input 
+                    type="text" 
+                    className="form-control-modern" 
+                    placeholder="Introducir Nombre de Usuario" 
                   />
                 </div>
               </div>

@@ -25,6 +25,7 @@ import Registro from './pages/registroUsuario'
 import TerminosCondiciones from './pages/terminosCondiciones'
 import RegistroUsuario from './pages/registroUsuario'
 import ContactosUsuario from './pages/contactosUsuario'
+import RecuperacionContrasena from './pages/recuperacionContrasena'
 import Favoritos from './pages/favoritos'
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/registro" element={<RegistroUsuario />} />
           <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
+          <Route path="/recuperacion-contrasena" element={<RecuperacionContrasena />} />
 
           {/* Rutas Privadas */}
           <Route path="/dashboard" element={<Dashboard />} />

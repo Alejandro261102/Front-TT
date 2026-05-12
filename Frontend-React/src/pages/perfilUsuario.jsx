@@ -93,10 +93,17 @@ export default function PerfilUsuario() {
             <div className="benefit-box shadow-sm" style={{ marginBottom: '2rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '1rem', marginBottom: '1rem' }}>
                 <h3 style={{ margin: 0 }}>Información de Contacto</h3>
-                <span style={{ fontSize: '1.2rem' }}>🆔</span>
               </div>
               
               <div className="contact-info-list" style={{ marginBottom: '1.5rem' }}>
+                <div className="form-group">
+                  <label className="form-label">Nombre de Usuario</label>
+                  <div className="input-wrapper">
+                    <span className="input-icon">�</span>
+                    <input className="form-control-modern" value={datosUsuario.nombre} readOnly disabled />
+                  </div>
+                </div>
+
                 <div className="form-group">
                   <label className="form-label">Correo electrónico</label>
                   <div className="input-wrapper">

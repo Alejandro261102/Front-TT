@@ -176,6 +176,14 @@ export default function PrivateHeader({ toggleSidebar }) {
             }}>
               <button 
                 className="dropdown-item"
+                onClick={() => { navigate('/perfil'); setShowUserMenu(false); }}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}
+              >
+                👤 Mi Perfil
+              </button>
+
+              <button 
+                className="dropdown-item"
                 onClick={() => { navigate('/configuracion'); setShowUserMenu(false); }}
                 style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}
               >

@@ -3,51 +3,55 @@ import { Link, useNavigate } from 'react-router-dom'
 import PublicHeader from '../components/PublicHeader'
 import Footer from '../components/Footer'
 
-// 1. Simulamos tus validadores
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+// 1. Validadores actualizados
+// Acepta formato de email O un nombre de usuario (letras, números, guiones bajos, 3-20 caracteres)
+const isValidIdentifier = (val) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const userRegex = /^[a-zA-Z0-9_]{3,20}$/;
+  return emailRegex.test(val.trim()) || userRegex.test(val.trim());
+};
 const isValidPassword = (password) => password.trim().length >= 6;
 
-// 2. Simulamos tu servicio de autenticación
-const loginUser = async (email, password) => {
+// 2. Servicio de autenticación simulado
+const loginUser = async (identificador, password) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (email === "admin@demo.com" && password === "123456") {
+      // Simulación: acepta "admin@demo.com" O "admin_user" con la misma clave
+      const credencialesCorrectas = (identificador === "admin@demo.com" || identificador === "admin_user");
+      
+      if (credencialesCorrectas && password === "123456") {
         resolve({ success: true, user: { name: "Administrador", email: "admin@demo.com" } });
       } else {
-        reject({ success: false, message: "Correo o contraseña incorrectos" });
+        reject({ success: false, message: "Usuario/Correo o contraseña incorrectos" });
       }
     }, 800);
   });
 };
 
 export default function Login() {
-  const navigate = useNavigate(); // Hook para redirigir de página
+  const navigate = useNavigate();
   
-  // Estados para guardar lo que el usuario escribe
-  const [email, setEmail] = useState('');
+  // Usamos un solo estado para ambos casos
+  const [identificador, setIdentificador] = useState('');
   const [password, setPassword] = useState('');
   
-  // Estados para mostrar mensajes
-  const [emailError, setEmailError] = useState('');
+  const [errorIdentificador, setErrorIdentificador] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [formMessage, setFormMessage] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Función que se ejecuta al darle "Iniciar Sesión"
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Limpiamos mensajes previos
-    setEmailError('');
+    setErrorIdentificador('');
     setPasswordError('');
     setFormMessage('');
     setIsSuccess(false);
 
     let isFormValid = true;
 
-    if (!isValidEmail(email)) {
-      setEmailError("Ingresa un correo electrónico válido.");
+    if (!isValidIdentifier(identificador)) {
+      setErrorIdentificador("Ingresa un correo o nombre de usuario válido.");
       isFormValid = false;
     }
 
@@ -62,11 +66,10 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      const response = await loginUser(email, password);
+      const response = await loginUser(identificador, password);
       setFormMessage(`Bienvenido, ${response.user.name}. Redirigiendo...`);
       setIsSuccess(true);
 
-      // Redirigir al dashboard después de 1 segundo
       setTimeout(() => {
         navigate('/dashboard');
       }, 1000);
@@ -87,25 +90,25 @@ export default function Login() {
         <section className="login-section">
           <div className="login-card">
             
-            {/* Ícono de usuario (hecho con CSS) */}
             <div className="user-icon" aria-hidden="true">
               <div className="icon-head"></div>
               <div className="icon-body"></div>
             </div>
 
             <form className="login-form" onSubmit={handleSubmit}>
+              {/* CAMPO UNIFICADO */}
               <div>
                 <input 
-                  type="email" 
-                  placeholder="Correo Electrónico" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text" // Cambiado a text para permitir username
+                  placeholder="Correo o Nombre de Usuario" 
+                  value={identificador}
+                  onChange={(e) => setIdentificador(e.target.value)}
                   disabled={isLoading}
                 />
-                {emailError && <p className="error-text">{emailError}</p>}
+                {errorIdentificador && <p className="error-text">{errorIdentificador}</p>}
               </div>
               
-              <div>
+              <div style={{ position: 'relative' }}>
                 <input 
                   type="password" 
                   placeholder="Contraseña" 
@@ -114,20 +117,34 @@ export default function Login() {
                   disabled={isLoading}
                 />
                 {passwordError && <p className="error-text">{passwordError}</p>}
+                
+                <div style={{ textAlign: 'right', marginTop: '8px' }}>
+                  <Link 
+                    to="/recuperacion-contrasena" 
+                    style={{ 
+                      fontSize: '0.85rem', 
+                      color: 'var(--color-primary)', 
+                      textDecoration: 'none',
+                      fontWeight: '500'
+                    }}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </div>
               </div>
 
-              {/* Mensaje general del formulario */}
               {formMessage && (
                 <p style={{
                   color: isSuccess ? '#52c41a' : (isLoading ? 'var(--color-dark)' : '#ff4d4f'),
                   textAlign: 'center',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  marginTop: '15px'
                 }}>
                   {formMessage}
                 </p>
               )}
 
-              <div className="login-buttons">
+              <div className="login-buttons" style={{ marginTop: '20px' }}>
                 <button type="submit" disabled={isLoading} style={{ backgroundColor: 'var(--color-secondary)', color: 'white' }}>
                   {isLoading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
