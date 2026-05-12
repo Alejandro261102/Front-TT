@@ -21,6 +21,7 @@ export default function RegistroUsuario() {
   const [showTokenModal, setShowTokenModal] = useState(false);
   const [tokenInput, setTokenInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -160,6 +161,35 @@ export default function RegistroUsuario() {
                   onChange={(e) => setTokenInput(e.target.value)}
                 />
               </div>
+              
+                              {/* SECCIÓN DE TÉRMINOS Y CONDICIONES */}
+                <div className="form-terms" style={{ 
+                  display: 'flex', 
+                  alignItems: 'flex-start', 
+                  gap: '10px', 
+                  marginTop: '1rem', 
+                  marginBottom: '1.5rem',
+                  textAlign: 'left' 
+                }}>
+                  <input 
+                    type="checkbox" 
+                    id="terms" 
+                    checked={aceptaTerminos}
+                    onChange={(e) => setAceptaTerminos(e.target.checked)}
+                    style={{ 
+                      marginTop: '4px', 
+                      width: '18px', 
+                      height: '18px', 
+                      cursor: 'pointer',
+                      accentColor: 'var(--accent-color, #C13676)' 
+                    }} 
+                    required 
+                  />
+                  <label htmlFor="terms" style={{ fontSize: '0.85rem', color: '#444', lineHeight: '1.4', cursor: 'pointer' }}>
+                    He leído y acepto los <Link to="/terminos-condiciones" style={{ color: 'var(--accent-color, #C13676)', fontWeight: 'bold', textDecoration: 'underline' }}>Términos y Condiciones</Link>, así como el Aviso de Privacidad para el manejo de mis datos cifrados.
+                  </label>
+                </div>
+
               <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: '1.5rem' }}>
                 Validar y Entrar
               </button>

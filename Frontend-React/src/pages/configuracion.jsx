@@ -1,15 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PrivateLayout from '../components/PrivateLayout'
+import { Link } from 'react-router-dom';
 
 export default function Configuracion() {
-  const [emailEnviado, setEmailEnviado] = useState(false);
-
-  const handleRecuperacionSoporte = (e) => {
-    e.preventDefault();
-    // Simulación de envío de correo de recuperación desde la sesión activa
-    setEmailEnviado(true);
-    setTimeout(() => setEmailEnviado(false), 5000); // Resetear mensaje tras 5s
-  };
 
   return (
     <PrivateLayout>
@@ -107,28 +100,15 @@ export default function Configuracion() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
               <span style={{ fontSize: '1.5rem' }}>📩</span>
               <h3 style={{ margin: 0 }}>Cambio de Contraseña</h3>
+              
+              {/* CORRECCIÓN: 'Link' con mayúscula y asegurando que la ruta exista */}
+              <Link to="/recuperacion-contrasena" className="btn btn-secondary" style={{ marginLeft: 'auto', textDecoration: 'none' }}>
+                Cambiar Contraseña
+              </Link>
             </div>
-            
-            {!emailEnviado ? (
-              <div className="recovery-integration">
-                <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
-                  ¿Deseas cambiar tu contraseña de forma segura? Te enviaremos un enlace de restablecimiento a tu correo registrado.
-                </p>
-                <button 
-                  onClick={handleRecuperacionSoporte} 
-                  className="btn btn-secondary"
-                  style={{ width: '100%' }}
-                >
-                  Enviar enlace de recuperación
-                </button>
-              </div>
-            ) : (
-              <div style={{ backgroundColor: '#f0fdf4', padding: '1rem', borderRadius: '8px', border: '1px solid #bbf7d0', textAlign: 'center' }}>
-                <p style={{ color: '#166534', margin: 0, fontSize: '0.9rem' }}>
-                  <strong>¡Enlace enviado!</strong> Revisa tu bandeja de entrada para continuar.
-                </p>
-              </div>
-            )}
+            <p style={{ fontSize: '0.9rem', color: '#666' }}>
+              Para cambiar tu contraseña, haz clic en el botón "Cambiar Contraseña" y sigue las instrucciones para verificar tu identidad mediante el token dual.
+            </p>
           </section>
 
           {/* SECCIÓN 4: PREFERENCIAS DE ALMACENAMIENTO */}
