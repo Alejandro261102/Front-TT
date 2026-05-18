@@ -1,32 +1,34 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import PublicHeader from '../components/PublicHeader'
+import PrivateHeader from '../components/PrivateHeader' // Importamos el Header Privado
 import Footer from '../components/Footer'
 
 export default function RecuperacionContrasena() {
   const navigate = useNavigate();
+  const location = useLocation();
   
-  // 1. ESTADOS
-  const [identificador, setIdentificador] = useState(''); // Puede ser correo o celular
+  // Detectamos si el usuario viene de la sección interna de Configuración
+  const vieneDesdeConfiguracion = location.state?.desdeConfiguracion || false;
+  
+  // ESTADOS
+  const [identificador, setIdentificador] = useState('');
   const [showResetModal, setShowResetModal] = useState(false);
   const [token, setToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Paso 1: Simular envío de token
   const handleSendToken = (e) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulación de backend enviando SMS y Email
     setTimeout(() => {
       setIsLoading(false);
       setShowResetModal(true);
     }, 1500);
   };
 
-  // Paso 2: Validar token y cambiar contraseña
   const handleResetPassword = (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
@@ -34,22 +36,39 @@ export default function RecuperacionContrasena() {
       return;
     }
     
-    // Simulación de éxito
-    alert("Contraseña restablecida correctamente.");
-    navigate('/login');
+    alert("Contraseña actualizada correctamente.");
+    
+    if (vieneDesdeConfiguracion) {
+      navigate('/configuracion');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
     <>
-      <PublicHeader />
+      {/* --- RENDERIZADO CONDICIONAL DE ENCABEZADOS --- */}
+      {vieneDesdeConfiguracion ? <PrivateHeader /> : <PublicHeader />}
 
       <main className="auth-page">
         <section className="section login-section">
           <div className="container auth-container">
             <div className="auth-card">
+              
+              {/* ENCABEZADOS DINÁMICOS SEGÚN EL CONTEXTO */}
               <div className="auth-header">
-                <h2>Restablecer acceso</h2>
-                <p>Ingresa tu correo o número de teléfono registrado para recibir un código de seguridad.</p>
+                <span className="section-badge">
+                  {vieneDesdeConfiguracion ? 'Ajustes de Cuenta' : 'Recuperación de Cuenta'}
+                </span>
+                <h2>
+                  {vieneDesdeConfiguracion ? 'Actualizar Contraseña' : 'Restablecer acceso'}
+                </h2>
+                <p>
+                  {vieneDesdeConfiguracion 
+                    ? 'Por seguridad, ingresa tu correo o teléfono para confirmar tu identidad antes de cambiar tu contraseña.' 
+                    : 'Ingresa tu correo o número de teléfono registrado para recibir un código de seguridad.'
+                  }
+                </p>
               </div>
 
               <form className="auth-form" onSubmit={handleSendToken}>
@@ -69,13 +88,23 @@ export default function RecuperacionContrasena() {
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block" disabled={isLoading}>
-                  {isLoading ? 'Enviando...' : 'Enviar Token de Recuperación'}
+                  {isLoading ? 'Enviando...' : 'Enviar Token de Confirmación'}
                 </button>
               </form>
 
-              <div className="auth-footer" style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
-                <p>¿Recordaste tu contraseña? <Link to="/login" className="link-text">Inicia sesión</Link></p>
-              </div>
+              {/* PIE DE TARJETA DINÁMICO */}
+              {!vieneDesdeConfiguracion ? (
+                <div className="auth-footer" style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+                  <p>¿Recordaste tu contraseña? <Link to="/login" className="link-text">Inicia sesión</Link></p>
+                </div>
+              ) : (
+                <div className="auth-footer" style={{ marginTop: '2rem', borderTop: '1px solid #eee', paddingTop: '1.5rem', textAlign: 'center' }}>
+                  <Link to="/configuracion" style={{ color: '#888', textDecoration: 'none', fontSize: '0.9rem' }}>
+                    ← Cancelar y regresar a Configuración
+                  </Link>
+                </div>
+              )}
+
             </div>
           </div>
         </section>
@@ -136,7 +165,7 @@ export default function RecuperacionContrasena() {
               </div>
 
               <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: '1rem' }}>
-                Restablecer e Iniciar Sesión
+                {vieneDesdeConfiguracion ? 'Actualizar Contraseña' : 'Restablecer e Iniciar Sesión'}
               </button>
               
               <button 

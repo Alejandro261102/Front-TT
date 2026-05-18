@@ -102,7 +102,10 @@ export default function Configuracion() {
               <h3 style={{ margin: 0 }}>Cambio de Contraseña</h3>
               
               {/* CORRECCIÓN: 'Link' con mayúscula y asegurando que la ruta exista */}
-              <Link to="/recuperacion-contrasena" className="btn btn-secondary" style={{ marginLeft: 'auto', textDecoration: 'none' }}>
+              <Link to="/recuperacion-contrasena" 
+                state={{ desdeConfiguracion: true }}
+                className="btn btn-secondary" 
+                style={{ marginLeft: 'auto', textDecoration: 'none' }}>
                 Cambiar Contraseña
               </Link>
             </div>
