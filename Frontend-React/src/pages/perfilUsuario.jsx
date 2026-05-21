@@ -37,7 +37,7 @@ export default function PerfilUsuario() {
       <main className="profile-page">
         <header className="section-heading">
           <h1>Perfil de Usuario</h1>
-          <p>Administra tu identidad digital y revisa tu estado de almacenamiento seguro.</p>
+          <p>Administra tu identidad y revisa tu estado de almacenamiento.</p>
         </header>
 
         <div className="profile-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem', marginTop: '3rem' }}>
@@ -49,7 +49,7 @@ export default function PerfilUsuario() {
               style={{ 
                 width: '140px', 
                 height: '140px', 
-                backgroundColor: 'var(--primary-color, #4A142C)', 
+                backgroundColor: 'var(--primary-color, #0A3FFF)', 
                 borderRadius: '50%', 
                 margin: '0 auto 1.5rem',
                 display: 'flex',
@@ -84,7 +84,7 @@ export default function PerfilUsuario() {
               style={{ marginTop: '1rem', width: '100%' }}
               onClick={handleEditFotoClick}
             >
-              📷 Editar Foto
+              Editar Foto
             </button>
           </aside>
 
@@ -99,7 +99,7 @@ export default function PerfilUsuario() {
                 <div className="form-group">
                   <label className="form-label">Nombre de Usuario</label>
                   <div className="input-wrapper">
-                    <span className="input-icon">�</span>
+                    {/* <span className="input-icon"></span> */}
                     <input className="form-control-modern" value={datosUsuario.nombre} readOnly disabled />
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function PerfilUsuario() {
                 <div className="form-group">
                   <label className="form-label">Correo electrónico</label>
                   <div className="input-wrapper">
-                    <span className="input-icon">📧</span>
+                    {/* <span className="input-icon">📧</span> */}
                     <input className="form-control-modern" value={datosUsuario.email} readOnly disabled />
                   </div>
                 </div>
@@ -115,7 +115,7 @@ export default function PerfilUsuario() {
                 <div className="form-group">
                   <label className="form-label">Teléfono</label>
                   <div className="input-wrapper">
-                    <span className="input-icon">📱</span>
+                    {/* <span className="input-icon">📱</span> */}
                     <input className="form-control-modern" value={datosUsuario.telefono} readOnly disabled />
                   </div>
                 </div>
@@ -126,14 +126,14 @@ export default function PerfilUsuario() {
                 style={{ width: '100%' }}
                 onClick={() => navigate('/configuracion')}
               >
-                ⚙️ Actualizar Datos en Configuración
+                Actualizar Datos en Configuración
               </button>
             </div>
 
             {/* Almacenamiento Azure */}
-            <div className="benefit-box shadow-sm" style={{ borderLeft: '4px solid var(--accent-color, #C13676)' }}>
+            <div className="benefit-box shadow-sm" style={{ borderLeft: '4px solid var(--accent-color, #0A3FFF)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem' }}>
-                <span style={{ fontSize: '1.5rem' }}>☁️</span>
+                {/* <span style={{ fontSize: '1.5rem' }}>☁️</span> */}
                 <h3 style={{ margin: 0 }}>Estado del Almacenamiento (Azure)</h3>
               </div>
 
@@ -143,7 +143,7 @@ export default function PerfilUsuario() {
               </div>
 
               <div style={{ width: '100%', backgroundColor: '#e2e8f0', height: '14px', borderRadius: '7px', overflow: 'hidden', marginBottom: '1rem' }}>
-                <div style={{ width: `${datosUsuario.porcentaje}%`, backgroundColor: 'var(--accent-color, #C13676)', height: '100%', transition: 'width 0.5s ease-in-out' }}></div>
+                <div style={{ width: `${datosUsuario.porcentaje}%`, backgroundColor: 'var(--accent-color, #0A3FFF)', height: '100%', transition: 'width 0.5s ease-in-out' }}></div>
               </div>
 
               <p style={{ fontSize: '0.85rem', color: '#64748b', fontStyle: 'italic' }}>

@@ -15,8 +15,8 @@ export default function Sidebar({ isOpen, closeSidebar }) {
 
         {/* <hr style={{ border: 'none', borderTop: '1px solid #e3e3e3', margin: '10px 0' }} /> */}
 
+          <li><NavLink to="/dashboard" onClick={closeSidebar}>Inicio</NavLink></li>
           <li><NavLink to="/perfil" onClick={closeSidebar}>Perfil</NavLink></li>
-          <li><NavLink to="/dashboard" onClick={closeSidebar}>Dashboard</NavLink></li>
           <li><NavLink to="/contactos" onClick={closeSidebar}>Contactos</NavLink></li>
           <li><NavLink to="/carpetas" onClick={closeSidebar}>Carpetas</NavLink></li>
           <li><NavLink to="/recientes" onClick={closeSidebar}>Recientes</NavLink></li>

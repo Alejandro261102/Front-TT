@@ -49,6 +49,12 @@ export default function Dashboard() {
 
   return (
     <PrivateLayout>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <section className="section-top">
         <div>
           <h1>Bienvenido, Alejandro</h1>

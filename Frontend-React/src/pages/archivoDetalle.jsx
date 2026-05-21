@@ -32,6 +32,7 @@ const ArchivoDetalle = () => {
 
   return (
     <div className="file-viewer-container">
+      
       <div className="viewer-toolbar">
         <div className="toolbar-left">
           <span className="viewer-filename">{archivo.nombre}</span>

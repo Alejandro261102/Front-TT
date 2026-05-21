@@ -55,6 +55,10 @@ export default function Recientes() {
     <PrivateLayout>
       <section className="section-top" style={{ marginBottom: '24px' }}>
         <div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Recientes</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que has abierto o modificado últimamente.</p>
         </div>
