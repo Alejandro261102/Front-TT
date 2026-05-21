@@ -8,12 +8,16 @@ export default function Configuracion() {
     <PrivateLayout>
       <main className="settings-page">
         <header className="section-heading">
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <h1>Configuración de Cuenta</h1>
           <p>Gestiona tu información personal y los parámetros de seguridad de tu cuenta.</p>
         </header>
 
         <div className="settings-grid" style={{ display: 'grid', gap: '2rem', marginTop: '3rem' }}>
-          
           {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
           <section className="benefit-box shadow-sm">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
@@ -111,29 +115,6 @@ export default function Configuracion() {
             <p style={{ fontSize: '0.9rem', color: '#666' }}>
               Para cambiar tu contraseña, haz clic en el botón "Cambiar Contraseña" y sigue las instrucciones para verificar tu identidad mediante el token dual.
             </p>
-          </section>
-
-          {/* SECCIÓN 4: PREFERENCIAS DE ALMACENAMIENTO */}
-          <section className="benefit-box shadow-sm">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              {/* <span style={{ fontSize: '1.5rem' }}>☁️</span> */}
-              <h3 style={{ margin: 0 }}>Preferencias de Almacenamiento</h3>
-            </div>
-            <div className="form-group">
-              <label className="form-label">Expiración por defecto de archivos</label>
-              <div className="input-wrapper">
-                {/* <span className="input-icon">⏳</span> */}
-                <select 
-                  className="form-control-modern" 
-                  style={{ paddingLeft: '40px', cursor: 'pointer' }}
-                >
-                  <option>24 horas</option>
-                  <option>7 días</option>
-                  <option>30 días</option>
-                </select>
-              </div>
-              <small className="form-help">Configuración de políticas de ciclo de vida del dato.</small>
-            </div>
           </section>
 
         </div>
