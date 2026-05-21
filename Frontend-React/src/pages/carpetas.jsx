@@ -9,8 +9,8 @@ const getSecurityBadge = (status) => {
   return null;
 }
 
-const fetchFoldersData = async () => {
-  try {
+const fetchDashboardData = async () => {
+  
     return {
       stats: { total: 12, shared: 4, favorites: 3 },
       folders: [
@@ -19,9 +19,6 @@ const fetchFoldersData = async () => {
         { id: 'fld-4', name: 'Borradores Financieros', fileCount: 10, lastModified: 'Hoy', icon: '📁', security: 'password' }
       ]
     };
-  } catch (error) {
-    throw error;
-  }
 }
 
 export default function Carpetas() {
@@ -35,9 +32,10 @@ export default function Carpetas() {
     const loadData = async () => {
       try {
         setIsLoading(true);
-        const result = await fetchFoldersData();
+        const result = await fetchDashboardData();
         setData(result);
       } catch (err) {
+        console.error("Error local al cargar carpetas:", err);
         setError('No se pudo cargar la información de las carpetas.');
       } finally {
         setIsLoading(false);
@@ -56,7 +54,7 @@ export default function Carpetas() {
           <br></br>
           <br></br>
           <br></br>
-          <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Mis carpetas</h1>
+          <h1 style={{ fontSize: '2rem', color: '#ffffff' }}>Mis carpetas</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>Organiza, consulta y administra tus carpetas.</p>
         </div>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -71,7 +69,7 @@ export default function Carpetas() {
       {!isLoading && !error && data && (
         <>  
           <section style={{ marginTop: '36px' }}>
-            <h2 style={{ color: 'var(--color-primary)', marginBottom: '20px', fontSize: '1.5rem' }}>Carpetas disponibles</h2>
+            <h2 style={{ color: '#1C40E8', marginBottom: '20px', fontSize: '1.5rem' }}>Carpetas disponibles</h2>
             <div className="cards-grid">
               {data.folders.map(folder => (
                 <article key={folder.id} className="folder-card" onClick={() => navigate(`/carpeta/${folder.id}`)} style={{ cursor: 'pointer' }}>

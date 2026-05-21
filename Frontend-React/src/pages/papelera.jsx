@@ -10,7 +10,7 @@ const getSecurityBadge = (status) => {
 
 // Servicio API (Simulado)
 const fetchTrashData = async () => {
-  try {
+  
     // 🔗 API REAL: const res = await fetch('/api/papelera'); return res.json();
     return [
       { id: 'del-1', type: 'file', name: 'Borrador_Antiguo.docx', info: '1.2 MB', deletedAt: 'Hace 2 horas', icon: '📝', security: 'public' },
@@ -18,9 +18,7 @@ const fetchTrashData = async () => {
       { id: 'del-3', type: 'file', name: 'Contraseñas_Viejas.pdf', info: '0.5 MB', deletedAt: 'Hace 5 días', icon: '📄', security: 'encrypted' },
       { id: 'del-4', type: 'file', name: 'Presupuesto_Rechazado.xlsx', info: '2.1 MB', deletedAt: 'Hace 2 semanas', icon: '📊', security: 'public' }
     ];
-  } catch (error) {
-    throw error;
-  }
+
 }
 
 // Componente Principal
@@ -36,6 +34,7 @@ export default function Papelera() {
         const result = await fetchTrashData();
         setItems(result);
       } catch (err) {
+        console.error("Error local al cargar elementos de la papelera:", err);
         setError('No se pudieron cargar los elementos de la papelera.');
       } finally {
         setIsLoading(false);
@@ -75,6 +74,12 @@ export default function Papelera() {
     <PrivateLayout>
       <section className="section-top" style={{ marginBottom: '24px' }}>
         <div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <h1 style={{ fontSize: '2rem', color: '#d93025' /* Rojo para indicar peligro/borrado */ }}>Papelera</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>
             Los elementos aquí se eliminarán definitivamente después de 30 días.

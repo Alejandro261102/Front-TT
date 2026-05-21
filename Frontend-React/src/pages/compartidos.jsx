@@ -10,7 +10,7 @@ const getSecurityBadge = (status) => {
 }
 
 const fetchSharedData = async () => {
-  try {
+  
     return {
       activos: [
         { id: 'fld-8', type: 'folder', name: 'Documentos Proyecto', owner: 'María G.', date: 'Hoy', icon: '📁', security: 'password' },
@@ -23,10 +23,8 @@ const fetchSharedData = async () => {
         { id: 'f-23', type: 'file', name: 'Reporte_Mensual.pdf', owner: 'Diego P.', date: '15/04/2026', icon: '📄', security: 'password', expiredDate: '05/05/2026' }
       ]
     };
-  } catch (error) {
-    throw error;
-  }
-}
+  } 
+
 
 export default function Compartidos() {
   const navigate = useNavigate()
@@ -44,6 +42,7 @@ export default function Compartidos() {
         setItemsActivos(result.activos);
         setItemsVencidos(result.vencidos);
       } catch (err) {
+        console.error("Error local al cargar elementos compartidos:", err);
         setError('No se pudieron cargar los elementos compartidos.');
       } finally {
         setIsLoading(false);
@@ -65,7 +64,7 @@ export default function Compartidos() {
           <br></br>
           <br></br>
           
-          <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Compartidos conmigo</h1>
+          <h1 style={{ fontSize: '2rem', color: '#ffffff' }}>Compartidos conmigo</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que otros usuarios han compartido contigo.</p>
         </div>
       </section>

@@ -12,7 +12,7 @@ const getSecurityBadge = (status) => {
 }
 
 const fetchRecentData = async () => {
-  try {
+  
     return [
       { id: 'fld-2', type: 'folder', name: 'Proyecto terminal', info: '8 archivos', date: 'Hoy, 10:30 AM', icon: '📁', security: 'public' },
       { id: 'f-1', type: 'file', name: 'Contraseñas_Servidor.pdf', info: '2.4 MB', date: 'Hoy, 09:15 AM', icon: '📄', security: 'encrypted' }, // Cifrado
@@ -20,9 +20,6 @@ const fetchRecentData = async () => {
       { id: 'fld-4', type: 'folder', name: 'Carpeta_Privada', info: '10 archivos', date: 'Ayer, 11:00 AM', icon: '📁', security: 'encrypted' }, // Carpeta cifrada
       { id: 'f-3', type: 'file', name: 'Diagrama_Arquitectura.png', info: '4.5 MB', date: 'Hace 2 días', icon: '🖼️', security: 'public' }
     ];
-  } catch (error) {
-    throw error;
-  }
 }
 
 export default function Recientes() {
@@ -39,6 +36,7 @@ export default function Recientes() {
         const result = await fetchRecentData();
         setItems(result);
       } catch (err) {
+        console.error("Error local al cargar elementos recientes:", err);
         setError('No se pudieron cargar los elementos recientes.');
       } finally {
         setIsLoading(false);
@@ -59,7 +57,7 @@ export default function Recientes() {
           <br></br>
           <br></br>
           <br></br>
-          <h1 style={{ fontSize: '2rem', color: 'var(--color-primary)' }}>Recientes</h1>
+          <h1 style={{ fontSize: '2rem', color: '#ffffff' }}>Recientes</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que has abierto o modificado últimamente.</p>
         </div>
       </section>
