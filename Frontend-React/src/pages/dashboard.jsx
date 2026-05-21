@@ -81,6 +81,7 @@ export default function Dashboard() {
           <button onClick={() => navigate('/subir-archivo')} className="btn btn-primary">+ Subir archivo</button>
           <button onClick={() => navigate('/enviar-archivo')} className="btn btn-primary">+ Enviar Archivo</button>
         </section>
+        
 
         {isLoading && <div style={{ padding: '40px', textAlign: 'center', color: 'var(--color-text-medium)' }}>Cargando información del espacio...</div>}
         {error && <div style={{ padding: '20px', backgroundColor: '#ffe5e5', color: '#d93025', borderRadius: '8px' }}>{error}</div>}
