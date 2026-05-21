@@ -17,7 +17,7 @@ export default function Configuracion() {
           {/* SECCIÓN 1: INFORMACIÓN PERSONAL */}
           <section className="benefit-box shadow-sm">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>👤</span>
+              {/* <span style={{ fontSize: '1.5rem' }}>👤</span> */}
               <h3 style={{ margin: 0 }}>Información Personal</h3>
             </div>
             
@@ -26,7 +26,6 @@ export default function Configuracion() {
               <div className="form-group">
                 <label className="form-label">Nombre completo</label>
                 <div className="input-wrapper">
-                  <span className="input-icon">👤</span>
                   <input 
                     type="text" 
                     className="form-control-modern" 
@@ -40,7 +39,7 @@ export default function Configuracion() {
               <div className="form-group">
                 <label className="form-label">Nombre de Usuario</label>
                 <div className="input-wrapper">
-                  <span className="input-icon">👤</span>
+                  {/* <span className="input-icon">👤</span> */}
                   <input 
                     type="text" 
                     className="form-control-modern" 
@@ -52,7 +51,7 @@ export default function Configuracion() {
               <div className="form-group">
                 <label className="form-label">Correo electrónico</label>
                 <div className="input-wrapper">
-                  <span className="input-icon">📧</span>
+                  {/* <span className="input-icon">📧</span> */}
                   <input 
                     type="email" 
                     className="form-control-modern" 
@@ -70,9 +69,9 @@ export default function Configuracion() {
           </section>
 
           {/* SECCIÓN 2: SEGURIDAD Y MFA (SMS) */}
-          <section className="benefit-box shadow-sm" style={{ borderLeft: '4px solid var(--accent-color, #C13676)' }}>
+          <section className="benefit-box shadow-sm" style={{ borderLeft: '4px solid var(--accent-color, #0A3FFF)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>🔐</span>
+              {/* <span style={{ fontSize: '1.5rem' }}>🔐</span> */}
               <h3 style={{ margin: 0 }}>Seguridad y Autenticación</h3>
             </div>
             
@@ -80,7 +79,7 @@ export default function Configuracion() {
               <label className="form-label">Número Celular para SMS</label>
               <div style={{ display: 'flex', gap: '1rem' }}>
                 <div className="input-wrapper" style={{ flex: 1 }}>
-                  <span className="input-icon">📱</span>
+                  {/* <span className="input-icon">📱</span> */}
                   <input 
                     type="tel" 
                     className="form-control-modern" 
@@ -98,7 +97,7 @@ export default function Configuracion() {
           {/* SECCIÓN 3: CAMBIO DE CONTRASEÑA (Integrada) */}
           <section className="benefit-box shadow-sm">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>📩</span>
+              {/* <span style={{ fontSize: '1.5rem' }}>📩</span> */}
               <h3 style={{ margin: 0 }}>Cambio de Contraseña</h3>
               
               {/* CORRECCIÓN: 'Link' con mayúscula y asegurando que la ruta exista */}
@@ -117,13 +116,13 @@ export default function Configuracion() {
           {/* SECCIÓN 4: PREFERENCIAS DE ALMACENAMIENTO */}
           <section className="benefit-box shadow-sm">
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>☁️</span>
+              {/* <span style={{ fontSize: '1.5rem' }}>☁️</span> */}
               <h3 style={{ margin: 0 }}>Preferencias de Almacenamiento</h3>
             </div>
             <div className="form-group">
               <label className="form-label">Expiración por defecto de archivos</label>
               <div className="input-wrapper">
-                <span className="input-icon">⏳</span>
+                {/* <span className="input-icon">⏳</span> */}
                 <select 
                   className="form-control-modern" 
                   style={{ paddingLeft: '40px', cursor: 'pointer' }}

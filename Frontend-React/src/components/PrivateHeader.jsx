@@ -37,6 +37,9 @@ export default function PrivateHeader({ toggleSidebar }) {
   const navigate = useNavigate()
   const location = useLocation()
   
+  // 🌟 ESTADO DE CONTROL DE SCROLL (Efecto heredado del PublicHeader)
+  const [scrolled, setScrolled] = useState(false);
+
   // Estados de Búsqueda y Notificaciones
   const [showNotifications, setShowNotifications] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -44,9 +47,22 @@ export default function PrivateHeader({ toggleSidebar }) {
   const [showResults, setShowResults] = useState(false)
   const searchRef = useRef(null)
 
-  // NUEVOS ESTADOS: Menú de Usuario
+  // Menú de Usuario
   const [showUserMenu, setShowUserMenu] = useState(false)
   const userMenuRef = useRef(null)
+
+  // 🌟 EFECTO DE ESCUCHA DE SCROLL (Sincronizado)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Efecto para hacer la búsqueda en vivo
   useEffect(() => {
@@ -63,14 +79,12 @@ export default function PrivateHeader({ toggleSidebar }) {
     doSearch();
   }, [searchTerm, location.pathname])
 
-  // Efecto para cerrar menús al hacer clic fuera (Buscador y Perfil)
+  // Efecto para cerrar menús al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Cerrar buscador
       if (searchRef.current && !searchRef.current.contains(event.target)) {
         setShowResults(false);
       }
-      // Cerrar menú de usuario
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
         setShowUserMenu(false);
       }
@@ -88,21 +102,44 @@ export default function PrivateHeader({ toggleSidebar }) {
   }
 
   const handleLogout = () => {
-    // Aquí puedes limpiar estados globales o tokens si los tuvieras
+    localStorage.clear(); // Limpia tokens si los hubiera al salir
     setShowUserMenu(false);
-    navigate('/'); // Redirige a la página principal (Nosotros)
+    navigate('/'); 
   };
 
   return (
-    <header className="private-header">
+    <header className={`private-header ${scrolled ? 'header-scrolled' : ''}`} style={{
+      position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 1000,
+      transition: 'all 0.4s ease',
+      /* 🌟 CONTROL DE ALTURA Y PADDING RECEPTIVO */
+      padding: scrolled ? '0.5rem 28px' : '0.85rem 28px',
+      minHeight: scrolled ? '65px' : '82px',
+      /* 🌟 EFECTO ESMERILADO Y COLOR BASE #18233C COMPARTIDO */
+      backgroundColor: scrolled ? 'rgba(24, 35, 60, 0.95)' : '#18233C', 
+      boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : '0 6px 16px rgba(0, 0, 0, 0.12)',
+      backdropFilter: scrolled ? 'blur(10px)' : 'none',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+    }}>
+      
       <div className="private-header-left">
         <button className="menu-toggle-btn" onClick={toggleSidebar}>☰</button>
-        <Link to="/dashboard" className="private-logo">Aplicación Web TT2</Link>
+        <Link to="/dashboard" className="private-logo" style={{ color: 'var(--color-white)', fontWeight: '700' }}>
+          <img src="/assets2/img/logo.png" 
+               alt="Logo Capara" 
+               className='logo-img'
+               style={{
+                  /* 🌟 AQUÍ SE CAMBIA EL TAMAÑO: Si el usuario baja mide 32px, si está arriba mide 40px */
+                  height: scrolled ? '40px' : '70px', 
+                  width: 'auto',          /* Mantiene la proporción para que no se aplaste */
+                  objectFit: 'contain',   /* Evita que se deforme */
+                  transition: 'height 0.3s ease' /* Hace el cambio de tamaño suave */
+                }} />
+        </Link>
       </div>
 
       {/* --- BUSCADOR --- */}
-      <div className="private-header-center" ref={searchRef} style={{ position: 'relative' }}>
-        <form className="header-search" onSubmit={handleSearchSubmit}>
+      <div className="private-header-center" ref={searchRef} style={{ position: 'relative', width: '100%', maxWidth: '720px' }}>
+        <form className="header-search" onSubmit={handleSearchSubmit} style={{ margin: 0 }}>
           <input 
             type="text" 
             placeholder={`Buscar en ${location.pathname === '/dashboard' ? 'todo tu espacio' : 'esta sección'}...`} 
@@ -113,20 +150,21 @@ export default function PrivateHeader({ toggleSidebar }) {
           <button type="submit">🔍</button>
         </form>
 
+        {/* Dropdown de Búsqueda Adaptado al Tema Oscuro */}
         {showResults && (
           <div className="search-results-dropdown" style={{
             position: 'absolute', top: '110%', left: 0, width: '100%',
-            backgroundColor: 'white', boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            borderRadius: '12px', border: '1px solid #eaeaea', zIndex: 1000,
+            backgroundColor: 'var(--color-primary)', boxShadow: 'var(--shadow-medium)',
+            borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', zIndex: 1000,
             overflow: 'hidden', textAlign: 'left'
           }}>
             {searchResults.length === 0 ? (
-              <div style={{ padding: '16px', color: '#666', textAlign: 'center' }}>
+              <div style={{ padding: '16px', color: 'var(--color-text-medium)', textAlign: 'center' }}>
                 No se encontraron coincidencias
               </div>
             ) : (
               <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-                <div style={{ padding: '8px 16px', backgroundColor: '#f9f9f9', fontSize: '0.8rem', color: '#888' }}>Resultados rápidos</div>
+                <div style={{ padding: '8px 16px', backgroundColor: 'var(--color-dark)', fontSize: '0.8rem', color: 'var(--color-text-medium)' }}>Resultados rápidos</div>
                 {searchResults.map(item => (
                   <div 
                     key={item.id}
@@ -136,10 +174,10 @@ export default function PrivateHeader({ toggleSidebar }) {
                       navigate(item.type === 'folder' ? `/carpeta/${item.id}` : `/archivo/${item.id}`);
                     }}
                     className="search-item"
-                    style={{ padding: '12px 16px', borderBottom: '1px solid #f5f5f5', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
+                    style={{ padding: '12px 16px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}
                   >
                     <span>{item.icon}</span>
-                    <p style={{ margin: 0, fontSize: '0.95rem' }}>{getSecurityBadge(item.security)} {item.name}</p>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: 'var(--color-white)' }}>{getSecurityBadge(item.security)} {item.name}</p>
                   </div>
                 ))}
               </div>
@@ -152,32 +190,34 @@ export default function PrivateHeader({ toggleSidebar }) {
       <div className="private-header-right">
         <div style={{ position: 'relative' }}>
           <button className="icon-btn" onClick={() => setShowNotifications(!showNotifications)}>🔔</button>
+          
+          {/* Dropdown de Notificaciones Adaptado al Tema Oscuro */}
           {showNotifications && (
-            <div className="notifications-dropdown" style={{ position: 'absolute', top: '120%', right: '0', width: '300px', backgroundColor: 'white', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', borderRadius: '12px', border: '1px solid #eaeaea', zIndex: 1000, padding: '16px' }}>
-              <h3 style={{ margin: '0 0 10px 0', fontSize: '1rem' }}>Notificaciones</h3>
-              <p style={{ color: '#888', textAlign: 'center', margin: 0 }}>No hay novedades</p>
+            <div className="notifications-dropdown" style={{ position: 'absolute', top: '130%', right: '0', width: '300px', backgroundColor: 'var(--color-primary)', boxShadow: 'var(--shadow-medium)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', zIndex: 1000, padding: '16px' }}>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '1rem', color: 'var(--color-accent)' }}>Notificaciones</h3>
+              <p style={{ color: 'var(--color-text-medium)', textAlign: 'center', margin: 0, fontSize: '0.9rem' }}>No hay novedades</p>
             </div>
           )}
         </div>
 
-        {/* --- MENU DESPLEGABLE DE USUARIO --- */}
+        {/* --- MENU DESPLEGABLE DE USUARIO (TEMA OSCURO PREMIUM) --- */}
         <div className="user-menu-container" ref={userMenuRef} style={{ position: 'relative' }}>
           <div className="user-box" onClick={() => setShowUserMenu(!showUserMenu)} style={{ cursor: 'pointer' }}>
-            <div className="user-avatar">AH</div>
-            <span className="user-name">Alejandro</span>
-            <span style={{ fontSize: '0.7rem', marginLeft: '5px' }}>{showUserMenu ? '▲' : '▼'}</span>
+            <div className="user-avatar" style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-dark)' }}>AH</div>
+            <span className="user-name" style={{ color: 'var(--color-white)' }}>Alejandro</span>
+            <span style={{ fontSize: '0.7rem', marginLeft: '5px', color: 'var(--color-accent)' }}>{showUserMenu ? '▲' : '▼'}</span>
           </div>
 
           {showUserMenu && (
-            <div className="user-dropdown shadow-sm" style={{
-              position: 'absolute', top: '120%', right: '0', width: '190px',
-              backgroundColor: 'white', borderRadius: '10px', border: '1px solid #eaeaea',
-              zIndex: 1001, overflow: 'hidden', padding: '5px 0'
+            <div className="user-dropdown" style={{
+              position: 'absolute', top: '130%', right: '0', width: '190px',
+              backgroundColor: 'var(--color-primary)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.08)',
+              boxShadow: 'var(--shadow-medium)', zIndex: 1001, overflow: 'hidden', padding: '5px 0'
             }}>
               <button 
                 className="dropdown-item"
                 onClick={() => { navigate('/perfil'); setShowUserMenu(false); }}
-                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: 'var(--color-white)' }}
               >
                 👤 Mi Perfil
               </button>
@@ -185,7 +225,7 @@ export default function PrivateHeader({ toggleSidebar }) {
               <button 
                 className="dropdown-item"
                 onClick={() => { navigate('/configuracion'); setShowUserMenu(false); }}
-                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem' }}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: 'var(--color-white)' }}
               >
                 ⚙️ Configuración
               </button>
@@ -193,7 +233,7 @@ export default function PrivateHeader({ toggleSidebar }) {
               <button 
                 className="dropdown-item logout"
                 onClick={handleLogout}
-                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: '#dc3545', borderTop: '1px solid #eee' }}
+                style={{ width: '100%', padding: '12px 16px', textAlign: 'left', border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.9rem', color: '#ff4d4f', borderTop: '1px solid rgba(255,255,255,0.05)' }}
               >
                 🚪 Cerrar Sesión
               </button>
