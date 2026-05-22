@@ -28,6 +28,7 @@ import ContactosUsuario from './pages/contactosUsuario'
 import RecuperacionContrasena from './pages/recuperacionContrasena'
 import Favoritos from './pages/favoritos'
 import AnadirAmigo from './pages/anadirAmigos'
+import EnviarArchivo from './pages/enviarArchivo'
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="/ayuda-soporte" element={<AyudaSoporte />} />
           <Route path="/favoritos" element={<Favoritos />} />
           <Route path="/anadir-amigos" element={<anadirAmigos />} />
+          <Route path="/enviar-archivo" element={<EnviarArchivo />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

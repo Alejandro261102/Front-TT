@@ -57,7 +57,7 @@ export default function Recientes() {
           <br></br>
           <br></br>
           <br></br>
-          <h1 style={{ fontSize: '2rem', color: '#ffffff' }}>Recientes</h1>
+          <h1 style={{ fontSize: '2rem', color: '#3C60E2' }}>Recientes</h1>
           <p style={{ color: 'var(--color-medium-dark)' }}>Archivos y carpetas que has abierto o modificado últimamente.</p>
         </div>
       </section>
