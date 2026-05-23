@@ -149,9 +149,13 @@ export default function SubirArchivo() {
           >
             <FaChevronLeft /> Cancelar y volver al espacio
           </button>
-          <br></br>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: '700', color: 'white' }}>Enviar Archivo</h1>
+        </section>
+
+        <section>
+          
+          <h1 style={{ fontSize: '2.2rem', fontWeight: '700', color: '#3C60E2' }}>Enviar Archivo</h1>
           <p style={{ color: 'var(--color-text-medium)', marginTop: '4px' }}>Comparte archivos de forma segura con otros usuarios. Configura permisos, seguridad y tiempo de expiración.</p>
+          <br></br>
         </section>
 
         {error && (

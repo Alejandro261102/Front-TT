@@ -40,7 +40,7 @@ export default function PublicHeader() {
                className='logo-img'
                style={{
                   /* 🌟 AQUÍ SE CAMBIA EL TAMAÑO: Si el usuario baja mide 32px, si está arriba mide 40px */
-                  height: scrolled ? '50px' : '100px', 
+                  height: scrolled ? '40px' : '80px', 
                   width: 'auto',          /* Mantiene la proporción para que no se aplaste */
                   objectFit: 'contain',   /* Evita que se deforme */
                   transition: 'height 0.3s ease' /* Hace el cambio de tamaño suave */
