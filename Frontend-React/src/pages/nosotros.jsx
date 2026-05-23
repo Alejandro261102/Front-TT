@@ -75,7 +75,7 @@ export default function Nosotros() {
               <div className="feature-card reveal-on-scroll delay-2" style={{ backgroundColor: 'var(--color-primary)', border: '1px solid rgba(255,255,255,0.05)', padding: '30px', borderRadius: '16px' }}>
                 <h2 style={{ color: 'var(--color-accent)', marginBottom: '15px', fontSize: '1.8rem' }}>Nuestra Visión</h2>
                 <p style={{ color: 'var(--color-text-light)', fontSize: '1rem', lineHeight: '1.6' }}>
-                  Convertirnos en el referente académico de transferencias seguras dentro 
+                  Convertirnos en el referente académico de transferencias de archivos dentro 
                   del Instituto Politécnico Nacional, promoviendo estándares de 
                   ciberseguridad de alto nivel.
                 </p>

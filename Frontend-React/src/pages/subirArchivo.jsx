@@ -42,6 +42,7 @@ export default function SubirArchivo() {
   // Campos opcionales solicitados
   const [asunto, setAsunto] = useState('')
   const [mensaje, setMensaje] = useState('')
+  const [setMessage] = useState('') // Para evitar error de compilación si se decide usar el mismo estado para ambos campos de mensaje
   
   // Estados de carga y error
   const [folders, setFolders] = useState([])
@@ -110,18 +111,24 @@ export default function SubirArchivo() {
             style={{ background: 'none', border: 'none', color: 'var(--color-text-medium)', cursor: 'pointer', fontSize: '0.9rem', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '6px', padding: 0 }}
           >
             <FaChevronLeft /> Cancelar y volver al espacio
+            
           </button>
-          <br></br>
-          <h1 style={{ fontSize: '2.2rem', fontWeight: '700', color: 'white' }}>Subir Archivo</h1>
-          <p style={{ color: 'var(--color-text-medium)', marginTop: '4px' }}>Carga tus documentos en la nube de Azure configurando las políticas criptográficas de acceso.</p>
+          
         </section>
+
+        <section >
+          <h1 style={{ fontSize: '2.2rem', fontWeight: '700', color: '#3C60E2' }}>Subir Archivo</h1>
+          <p style={{ color: 'var(--color-text-medium)', marginTop: '4px' }}>Carga tus documentos.</p>
+        </section>
+
 
         {error && (
           <div style={{ padding: '16px', backgroundColor: 'rgba(245, 34, 45, 0.15)', color: '#f5222d', border: '1px solid rgba(245, 34, 45, 0.2)', borderRadius: '10px', marginBottom: '25px', textAlign: 'left' }}>
             <strong>Error de Políticas:</strong> {error}
           </div>
         )}
-
+        
+        <br></br>
         {/* Formulario Principal con Estilo de Luz Integrado */}
         <form 
           onSubmit={handleSubmit} 
@@ -205,7 +212,7 @@ export default function SubirArchivo() {
             <textarea 
               rows="3"
               className="form-control-modern" 
-              placeholder="Añade notas contextuales sobre este documento..."
+              placeholder="Ingresar mensaje..."
               value={mensaje}
               onChange={(e) => setMessage ? setMessage(e.target.value) : setMensaje(e.target.value)}
               style={{ width: '100%', backgroundColor: 'var(--color-dark)', color: 'white', border: '1px solid rgba(255,255,255,0.1)', padding: '12px', borderRadius: '8px', fontSize: '1rem', resize: 'none', outline: 'none' }}
@@ -340,7 +347,7 @@ export default function SubirArchivo() {
 
         </form>
       </main>
-      <Footer />
+    
     </PrivateLayout>
   )
 }
